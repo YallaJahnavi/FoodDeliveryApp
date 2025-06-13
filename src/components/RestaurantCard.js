@@ -12,38 +12,41 @@ const RestaurantCard = (props) => {
     avgRating,
     cuisines,
     costForTwo,
-    deliveryTime,
+    sla,
   } = resData;
 
   return (
     <div
       data-testid="resCard"
-      className="m-4 p-4 w-[250px] rounded-lg bg-gray-100 hover:bg-gray-200"
+      className="w-64 h-80 m-4 p-4 bg-gray-100 hover:bg-gray-200 rounded-lg flex flex-col justify-between shadow-md transition-transform hover:scale-105"
     >
       <img
-        className="rounded-lg"
+        className="w-full h-32 object-cover rounded-md mb-2"
         alt="res-logo"
         src={CDN_URL + cloudinaryImageId}
       />
-      <h3 className="font-bold py-4 text-lg">{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
-      <h4>{avgRating} stars</h4>
-      <h4>₹{costForTwo / 100} FOR TWO</h4>
-      <h4>{deliveryTime} minutes</h4>
-      <h4>User : {loggedInUser} </h4>
+
+      <div className="flex flex-col justify-between flex-1">
+        <h3 className="font-bold text-md truncate">{name}</h3>
+        <p className="text-sm text-gray-700 line-clamp-2">
+          {cuisines.join(", ")}
+        </p>
+        <div className="mt-2 text-sm">
+          <p>⭐ {avgRating} • ₹{costForTwo / 100} FOR TWO</p>
+          <p>{sla?.deliveryTime || 30} mins</p>
+          <p className="text-gray-500 text-xs">User: {loggedInUser}</p>
+        </div>
+      </div>
     </div>
   );
 };
 
-// Higher Order Component
-
-// input - RestaurantCard =>> RestaurantCardPromoted
-
+// Higher Order Component to add 'Promoted' label
 export const withPromtedLabel = (RestaurantCard) => {
   return (props) => {
     return (
-      <div>
-        <label className="absolute bg-black text-white m-2 p-2 rounded-lg">
+      <div className="relative">
+        <label className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded">
           Promoted
         </label>
         <RestaurantCard {...props} />
