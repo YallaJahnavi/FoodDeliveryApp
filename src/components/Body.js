@@ -12,6 +12,10 @@ const Body = () => {
 
   const RestaurantCardPromoted = withPromtedLabel(RestaurantCard);
 
+  const { loggedInUser, setUserName, isLoggedIn } = useContext(UserContext);
+
+  const onlineStatus = useOnlineStatus();
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -23,24 +27,28 @@ const Body = () => {
 
     const json = await data.json();
 
-    setListOfRestraunt(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurant(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-  };
+    const restaurants =
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
 
-  const onlineStatus = useOnlineStatus();
+    setListOfRestraunt(restaurants || []);
+    setFilteredRestaurant(restaurants || []);
+  };
 
   if (onlineStatus === false)
     return (
       <h1>
-        Looks like you're offline!! Please check your internet connection;
+        Looks like you're offline!! Please check your internet connection.
       </h1>
     );
 
-  const { loggedInUser, setUserName } = useContext(UserContext);
+  // 🧨 If user is not logged in, show logout message instead of cards
+  if (!isLoggedIn) {
+    return (
+      <div className="text-center mt-20 text-2xl font-semibold text-red-600">
+        User Logged Out Successfully !!!
+      </div>
+    );
+  }
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
