@@ -13,7 +13,6 @@ const Body = () => {
   const RestaurantCardPromoted = withPromtedLabel(RestaurantCard);
 
   const { loggedInUser, setUserName, isLoggedIn } = useContext(UserContext);
-
   const onlineStatus = useOnlineStatus();
 
   useEffect(() => {
@@ -24,11 +23,20 @@ const Body = () => {
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
     );
-
     const json = await data.json();
 
-    const restaurants =
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+    const cards = json?.data?.cards || [];
+    let restaurants = [];
+
+    for (const card of cards) {
+      if (
+        card?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      ) {
+        restaurants =
+          card.card.card.gridElements.infoWithStyle.restaurants;
+        break;
+      }
+    }
 
     setListOfRestraunt(restaurants || []);
     setFilteredRestaurant(restaurants || []);
@@ -41,7 +49,6 @@ const Body = () => {
       </h1>
     );
 
-  // 🧨 If user is not logged in, show logout message instead of cards
   if (!isLoggedIn) {
     return (
       <div className="text-center mt-20 text-2xl font-semibold text-red-600">
@@ -102,18 +109,24 @@ const Body = () => {
 
       {/* Restaurant Cards Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredRestaurant.map((restaurant) => (
-          <Link
-            key={restaurant?.info.id}
-            to={"/restaurants/" + restaurant?.info.id}
-          >
-            {restaurant?.info.promoted ? (
-              <RestaurantCardPromoted resData={restaurant?.info} />
-            ) : (
-              <RestaurantCard resData={restaurant?.info} />
-            )}
-          </Link>
-        ))}
+        {filteredRestaurant.length === 0 ? (
+          <p className="text-center w-full col-span-full text-red-500">
+            No restaurants match your search.
+          </p>
+        ) : (
+          filteredRestaurant.map((restaurant) => (
+            <Link
+              key={restaurant?.info.id}
+              to={"/restaurants/" + restaurant?.info.id}
+            >
+              {restaurant?.info.promoted ? (
+                <RestaurantCardPromoted resData={restaurant?.info} />
+              ) : (
+                <RestaurantCard resData={restaurant?.info} />
+              )}
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );
