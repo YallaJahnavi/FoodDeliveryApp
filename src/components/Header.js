@@ -5,12 +5,19 @@ import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  const { loggedInUser, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { loggedInUser, setUserName, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
 
+  // ✅ FIX: Get cart items from Redux store
   const cartItems = useSelector((store) => store.cart.items);
 
   const handleLoginLogout = () => {
-    setIsLoggedIn(!isLoggedIn);
+    if (isLoggedIn) {
+      setUserName(""); // ✅ Clear the username on logout
+      setIsLoggedIn(false); // ✅ Update login status
+    } else {
+      setIsLoggedIn(true); // ✅ Re-enable login status
+      setUserName("Jahnavi"); // ✅ (Optional) Set default username again on login
+    }
   };
 
   return (
@@ -41,12 +48,14 @@ const Header = () => {
           <li className="px-4 font-bold text-xl">
             <Link to="/cart">Cart - ({cartItems.length} items)</Link>
           </li>
-          <button
-            className="px-4 py-1 bg-green-200 rounded"
-            onClick={handleLoginLogout}
-          >
-            {isLoggedIn ? "Logout" : "Login"}
-          </button>
+          <li className="px-4">
+            <button
+              className="px-4 py-1 bg-green-200 rounded"
+              onClick={handleLoginLogout}
+            >
+              {isLoggedIn ? "Logout" : "Login"}
+            </button>
+          </li>
           <li className="px-4">{loggedInUser}</li>
         </ul>
       </div>
@@ -55,4 +64,5 @@ const Header = () => {
 };
 
 export default Header;
+
 
