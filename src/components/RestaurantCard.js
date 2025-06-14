@@ -6,17 +6,18 @@ const RestaurantCard = (props) => {
   const { resData } = props;
   const { loggedInUser } = useContext(UserContext);
 
-  // Add fallback/default values to avoid NaN and runtime issues
   const {
     cloudinaryImageId = "",
     name = "Unknown Restaurant",
     avgRating = "4.0",
     cuisines = [],
-    costForTwo = 20000, // default to ₹200
+    costForTwo = 20000,
     sla = {},
   } = resData || {};
 
-  const imageUrl = cloudinaryImageId ? CDN_URL + cloudinaryImageId : "https://via.placeholder.com/300x200?text=No+Image";
+  const imageUrl = cloudinaryImageId
+    ? CDN_URL + cloudinaryImageId
+    : "https://via.placeholder.com/300x200?text=No+Image";
 
   return (
     <div
@@ -24,7 +25,7 @@ const RestaurantCard = (props) => {
       className="w-64 h-80 m-4 p-4 bg-gray-100 hover:bg-gray-200 rounded-lg flex flex-col justify-between shadow-md transition-transform hover:scale-105"
     >
       <img
-        className="w-full h-32 object-cover rounded-md mb-2"
+        className="w-full h-32 object-cover rounded-md mb-2 aspect-video"
         alt="res-logo"
         src={imageUrl}
       />
@@ -37,7 +38,10 @@ const RestaurantCard = (props) => {
         <div className="mt-2 text-sm">
           <p>
             ⭐ {avgRating} • ₹
-            {isNaN(costForTwo / 100) ? "200" : (costForTwo / 100).toFixed(0)} FOR TWO
+            {isNaN(costForTwo / 100)
+              ? "200"
+              : (costForTwo / 100).toFixed(0)}{" "}
+            FOR TWO
           </p>
           <p>{sla?.deliveryTime || 30} mins</p>
           <p className="text-gray-500 text-xs">User: {loggedInUser}</p>
@@ -60,4 +64,3 @@ export const withPromtedLabel = (RestaurantCard) => {
 };
 
 export default RestaurantCard;
-
