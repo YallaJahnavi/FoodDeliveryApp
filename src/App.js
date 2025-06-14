@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -6,44 +6,31 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
 
+// Lazy imports
 const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
 
+// ✅ Import the context provider
+import { UserContextProvider } from "./utils/UserContext";
+
 const AppLayout = () => {
-  const [userName, setUserName] = useState();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-  useEffect(() => {
-    const data = {
-      name: "Jahnavi",
-    };
-    setUserName(data.name);
-  }, []);
-
   return (
     <Provider store={appStore}>
-      <UserContext.Provider
-        value={{
-          loggedInUser: userName,
-          setUserName,
-          isLoggedIn,
-          setIsLoggedIn,
-        }}
-      >
+      <UserContextProvider> {/* ✅ Wrap with provider */}
         <div className="app">
           <Header />
           <Outlet />
         </div>
-      </UserContext.Provider>
+      </UserContextProvider>
     </Provider>
   );
 };
 
+// Router setup
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -74,5 +61,6 @@ const appRouter = createBrowserRouter([
   },
 ]);
 
+// Render app
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={appRouter} />);
