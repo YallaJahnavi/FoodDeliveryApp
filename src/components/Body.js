@@ -11,7 +11,6 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
 
   const RestaurantCardPromoted = withPromtedLabel(RestaurantCard);
-
   const { loggedInUser, setUserName, isLoggedIn } = useContext(UserContext);
   const onlineStatus = useOnlineStatus();
 
@@ -24,16 +23,12 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
-
     const cards = json?.data?.cards || [];
     let restaurants = [];
 
     for (const card of cards) {
-      if (
-        card?.card?.card?.gridElements?.infoWithStyle?.restaurants
-      ) {
-        restaurants =
-          card.card.card.gridElements.infoWithStyle.restaurants;
+      if (card?.card?.card?.gridElements?.infoWithStyle?.restaurants) {
+        restaurants = card.card.card.gridElements.infoWithStyle.restaurants;
         break;
       }
     }
@@ -42,12 +37,13 @@ const Body = () => {
     setFilteredRestaurant(restaurants || []);
   };
 
-  if (onlineStatus === false)
+  if (onlineStatus === false) {
     return (
-      <h1>
+      <h1 className="text-center text-xl mt-10 text-red-600">
         Looks like you're offline!! Please check your internet connection.
       </h1>
     );
+  }
 
   if (!isLoggedIn) {
     return (
@@ -60,14 +56,14 @@ const Body = () => {
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body p-4">
+    <div className="body-container p-4 max-w-7xl mx-auto">
       {/* Filter/Search Section */}
-      <div className="filter flex flex-wrap gap-4 mb-6">
+      <div className="filter flex flex-wrap gap-4 mb-6 items-center justify-center">
         <div className="search flex items-center gap-2">
           <input
             type="text"
             data-testid="searchInput"
-            className="border border-solid border-black p-2"
+            className="border border-solid border-black p-2 rounded"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search Restaurants"
@@ -98,9 +94,9 @@ const Body = () => {
         </button>
 
         <div className="flex items-center gap-2">
-          <label>UserName:</label>
+          <label className="font-medium">User:</label>
           <input
-            className="border border-black p-2"
+            className="border border-black p-2 rounded"
             value={loggedInUser}
             onChange={(e) => setUserName(e.target.value)}
           />
@@ -117,7 +113,7 @@ const Body = () => {
           filteredRestaurant.map((restaurant) => (
             <Link
               key={restaurant?.info.id}
-              to={"/restaurants/" + restaurant?.info.id}
+              to={`/app/restaurants/${restaurant?.info.id}`}
             >
               {restaurant?.info.promoted ? (
                 <RestaurantCardPromoted resData={restaurant?.info} />
