@@ -6,13 +6,34 @@ import UserContext from "../utils/UserContext";
 const Login = () => {
   const navigate = useNavigate();
   const { setUserName, setIsLoggedIn } = useContext(UserContext);
-  const [credentials, setCredentials] = useState({ username: "", password: "" });
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setUserName(credentials.username);
-    setIsLoggedIn(true);
-    navigate("/app"); // ✅ GO TO HOME PAGE
+
+    // ✅ Get registered users from localStorage
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    // ✅ Check if entered credentials match a registered user
+    const foundUser = users.find(
+      (u) =>
+        u.username === credentials.username &&
+        u.password === credentials.password
+    );
+
+    if (foundUser) {
+      // ✅ Successful login
+      setUserName(credentials.username);
+      setIsLoggedIn(true);
+      navigate("/app"); // ✅ GO TO HOME PAGE
+    } else {
+      // ❌ Failed login
+      alert("Invalid credentials. Please register first.");
+      navigate("/register"); // ✅ Redirect to Register page
+    }
   };
 
   return (
