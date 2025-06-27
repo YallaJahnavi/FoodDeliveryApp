@@ -92,15 +92,6 @@ const Body = () => {
         >
           Top Rated Restaurants
         </button>
-
-        <div className="flex items-center gap-2">
-          <label className="font-medium">User:</label>
-          <input
-            className="border border-black p-2 rounded"
-            value={loggedInUser}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-        </div>
       </div>
 
       {/* Restaurant Cards Section */}
@@ -129,3 +120,4 @@ const Body = () => {
 };
 
 export default Body;
+
