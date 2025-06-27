@@ -14,6 +14,8 @@ const Header = () => {
     if (isLoggedIn) {
       setUserName("");        // Clear username on logout
       setIsLoggedIn(false);   // Update login status
+
+      //alert("User Logged out Successfully");
     } else {
       setIsLoggedIn(true);    
       setUserName("Jahnavi"); // Set default username on login
@@ -90,7 +92,7 @@ const Header = () => {
             </button>
           </li>
 
-          <li>{loggedInUser}</li>
+          {/* Username removed from here */}
         </ul>
       </div>
     </div>
