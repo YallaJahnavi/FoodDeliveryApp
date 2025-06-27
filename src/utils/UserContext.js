@@ -1,16 +1,17 @@
-// src/utils/UserContext.js
 import { createContext, useState } from "react";
 
+// Create the context
 const UserContext = createContext({
   loggedInUser: "",
   setUserName: () => {},
-  isLoggedIn: false,
+  isLoggedIn: true,
   setIsLoggedIn: () => {},
 });
 
+// Create a provider component
 export const UserContextProvider = ({ children }) => {
-  const [loggedInUser, setUserName] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedInUser, setUserName] = useState("Guest");
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <UserContext.Provider
