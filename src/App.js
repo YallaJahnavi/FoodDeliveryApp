@@ -9,70 +9,58 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
-import { UserContextProvider } from "./utils/UserContext";
-import LandingPage from "./components/LandingPage";
-import Register from "./components/Register";
-import Login from "./components/Login";
 
+// Lazy imports
 const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
+
+// ✅ Import the context provider
+import { UserContextProvider } from "./utils/UserContext";
 
 const AppLayout = () => {
   return (
     <Provider store={appStore}>
-      <UserContextProvider>
-        <div className="app-container">
+      <UserContextProvider> {/* ✅ Wrap with provider */}
+        <div className="app">
           <Header />
-          <div className="outlet-wrapper">
-            <Outlet />
-          </div>
+          <Outlet />
         </div>
       </UserContextProvider>
     </Provider>
   );
 };
 
+// Router setup
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
-    errorElement: <Error />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/app",
     element: <AppLayout />,
     children: [
-      { index: true, element: <Body /> },
+      { path: "/", element: <Body /> },
       {
-        path: "about",
+        path: "/about",
         element: (
-          <Suspense fallback={<h1>Loading...</h1>}>
+          <Suspense fallback={<h1>Loading....</h1>}>
             <About />
           </Suspense>
         ),
       },
-      { path: "contact", element: <Contact /> },
+      { path: "/contact", element: <Contact /> },
       {
-        path: "grocery",
+        path: "/grocery",
         element: (
-          <Suspense fallback={<h1>Loading...</h1>}>
+          <Suspense fallback={<h1>Loading....</h1>}>
             <Grocery />
           </Suspense>
         ),
       },
-      { path: "restaurants/:resId", element: <RestaurantMenu /> },
-      { path: "cart", element: <Cart /> },
+      { path: "/restaurants/:resId", element: <RestaurantMenu /> },
+      { path: "/cart", element: <Cart /> },
     ],
+    errorElement: <Error />,
   },
 ]);
 
+// Render app
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={appRouter} />);
