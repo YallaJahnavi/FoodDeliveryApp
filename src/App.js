@@ -14,13 +14,19 @@ import Cart from "./components/Cart";
 const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
 
-// ✅ Import the context provider
+// ✅ Auth pages
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+// ✅ Context provider
 import { UserContextProvider } from "./utils/UserContext";
 
+// ✅ App layout with Header
 const AppLayout = () => {
   return (
     <Provider store={appStore}>
-      <UserContextProvider> {/* ✅ Wrap with provider */}
+      <UserContextProvider>
         <div className="app">
           <Header />
           <Outlet />
@@ -30,37 +36,55 @@ const AppLayout = () => {
   );
 };
 
-// Router setup
+// ✅ App layout without Header (for landing/login/register)
+const MinimalLayout = () => {
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
+};
+
+// ✅ Router setup
 const appRouter = createBrowserRouter([
   {
     path: "/",
+    element: <MinimalLayout />, // No header here
+    children: [
+      { path: "/", element: <Landing /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+    ],
+    errorElement: <Error />,
+  },
+  {
+    path: "/home", // Swiggy clone main routes
     element: <AppLayout />,
     children: [
-      { path: "/", element: <Body /> },
+      { path: "/home", element: <Body /> },
       {
-        path: "/about",
+        path: "/home/about",
         element: (
           <Suspense fallback={<h1>Loading....</h1>}>
             <About />
           </Suspense>
         ),
       },
-      { path: "/contact", element: <Contact /> },
+      { path: "/home/contact", element: <Contact /> },
       {
-        path: "/grocery",
+        path: "/home/grocery",
         element: (
           <Suspense fallback={<h1>Loading....</h1>}>
             <Grocery />
           </Suspense>
         ),
       },
-      { path: "/restaurants/:resId", element: <RestaurantMenu /> },
-      { path: "/cart", element: <Cart /> },
+      { path: "/home/restaurants/:resId", element: <RestaurantMenu /> },
+      { path: "/home/cart", element: <Cart /> },
     ],
-    errorElement: <Error />,
   },
 ]);
 
-// Render app
+// ✅ Render App
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={appRouter} />);
