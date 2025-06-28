@@ -37,16 +37,7 @@ const Header = () => {
             Online Status:{" "}
             <span style={{ fontSize: "20px" }}>{isLoggedIn ? "✅" : "🔴"}</span>
           </li>
-
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
-            >
-              Home
-            </NavLink>
-          </li>
-
+  
           <li>
             <NavLink
               to="/about"
