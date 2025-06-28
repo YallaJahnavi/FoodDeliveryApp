@@ -1,36 +1,36 @@
-import { LOGO_URL } from "../utils/constants";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
+import UserContext from "../utils/UserContext";
+import "./Header.css"; // ✅ Import the CSS file we'll create
 
 const Header = () => {
   const { loggedInUser, setUserName, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
-
-  // ✅ Get cart items from Redux store
   const cartItems = useSelector((store) => store.cart.items);
 
   const handleLoginLogout = () => {
     if (isLoggedIn) {
-      setUserName("");        // Clear username on logout
-      setIsLoggedIn(false);   // Update login status
-
-      //alert("User Logged out Successfully");
+      setUserName("");
+      setIsLoggedIn(false);
     } else {
-      setIsLoggedIn(true);    
-      setUserName("Jahnavi"); // Set default username on login
+      setIsLoggedIn(true);
+      setUserName("Jahnavi");
     }
   };
 
-  // 🔷 Styling for active links
   const activeClass = "text-green-600 font-bold border-b-2 border-green-600";
   const inactiveClass = "hover:text-green-500";
 
   return (
-    <div className="flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
-      <div className="logo-container">
-        <img className="w-56" src={LOGO_URL} alt="app logo" />
+    <div className="flex justify-between items-start bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
+      <div className="logo-container p-4">
+        <img
+          className="logo-img"
+          src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7e/0e/42/7e0e4245-9e3b-e243-2d77-c5b5016002a6/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/1200x630wa.png"
+          alt="Swiggy Logo"
+        />
       </div>
+
       <div className="flex items-center">
         <ul className="flex p-4 m-4 items-center gap-4">
           <li>
@@ -91,8 +91,6 @@ const Header = () => {
               {isLoggedIn ? "Logout" : "Login"}
             </button>
           </li>
-
-          {/* Username removed from here */}
         </ul>
       </div>
     </div>
