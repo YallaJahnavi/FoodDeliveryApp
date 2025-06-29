@@ -1,9 +1,13 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addItemsToCart } from "../utils/cartSlice";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [restaurantData, setRestaurantData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedItems, setSelectedItems] = useState({});
@@ -28,18 +32,6 @@ const RestaurantMenu = () => {
     }
   };
 
-  if (isLoading) return <h2 className="text-center mt-10">Loading...</h2>;
-  if (!restaurantData) return <h2 className="text-center mt-10 text-red-500">Failed to load restaurant details.</h2>;
-
-  const restaurantInfoCard = restaurantData?.cards?.find(
-    (card) => card?.card?.card?.info
-  );
-
-  const restaurantInfo = restaurantInfoCard?.card?.card?.info;
-  const menuCards = restaurantData?.cards?.find(
-    (card) => card?.groupedCard
-  )?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-
   const handleCheckboxChange = (itemId, itemInfo) => {
     setSelectedItems((prev) => {
       const newSelection = { ...prev };
@@ -53,17 +45,29 @@ const RestaurantMenu = () => {
   };
 
   const handleAddToCart = () => {
-    console.log("Items added to cart:", Object.values(selectedItems));
-    alert("Selected items added to cart!");
-    // You can dispatch to Redux store here
+    const itemsArray = Object.values(selectedItems);
+    dispatch(addItemsToCart(itemsArray));
+    navigate("/home/cart");
   };
 
   const handleBuyNow = () => {
-    console.log("Proceed to buy:", Object.values(selectedItems));
-    alert("Redirecting to checkout...");
-    // You can navigate to checkout page with selected items
-    // navigate('/checkout', { state: { items: Object.values(selectedItems) } });
+    console.log("Proceeding to buy:", Object.values(selectedItems));
+    alert("Proceeding to buy...");
+    // Optional: navigate to /checkout page with selected items
+    // navigate("/checkout", { state: { items: Object.values(selectedItems) } });
   };
+
+  if (isLoading) return <h2 className="text-center mt-10">Loading...</h2>;
+  if (!restaurantData) return <h2 className="text-center mt-10 text-red-500">Failed to load restaurant details.</h2>;
+
+  const restaurantInfoCard = restaurantData?.cards?.find(
+    (card) => card?.card?.card?.info
+  );
+
+  const restaurantInfo = restaurantInfoCard?.card?.card?.info;
+  const menuCards = restaurantData?.cards?.find(
+    (card) => card?.groupedCard
+  )?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
@@ -75,6 +79,7 @@ const RestaurantMenu = () => {
         ← Back to Restaurants
       </button>
 
+      {/* Restaurant Info */}
       {restaurantInfo && (
         <>
           <h1 className="text-2xl font-bold mb-2">{restaurantInfo.name}</h1>
@@ -83,6 +88,7 @@ const RestaurantMenu = () => {
         </>
       )}
 
+      {/* Menu Items */}
       <h2 className="text-xl font-semibold mb-3">Menu</h2>
       <ul className="space-y-2">
         {menuCards?.map((menuItem, index) => {
@@ -103,7 +109,7 @@ const RestaurantMenu = () => {
         })}
       </ul>
 
-      {/* ✅ Selected Items & Buttons */}
+      {/* Selected Items + Actions */}
       {Object.keys(selectedItems).length > 0 && (
         <div className="mt-6 bg-gray-100 p-4 rounded shadow">
           <h3 className="text-lg font-semibold mb-2">Selected Items:</h3>
@@ -115,7 +121,6 @@ const RestaurantMenu = () => {
             ))}
           </ul>
 
-          {/* ✅ Action Buttons */}
           <div className="flex gap-4">
             <button
               onClick={handleAddToCart}
