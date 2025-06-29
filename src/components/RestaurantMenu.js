@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
+  const navigate = useNavigate(); // ✅ Navigation hook
   const [restaurantData, setRestaurantData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -29,7 +30,6 @@ const RestaurantMenu = () => {
   if (isLoading) return <h2 className="text-center mt-10">Loading...</h2>;
   if (!restaurantData) return <h2 className="text-center mt-10 text-red-500">Failed to load restaurant details.</h2>;
 
-  // Find restaurant info card safely
   const restaurantInfoCard = restaurantData?.cards?.find(
     (card) => card?.card?.card?.info
   );
@@ -41,6 +41,14 @@ const RestaurantMenu = () => {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
+      {/* ✅ Back Button */}
+      <button
+        className="mb-4 px-4 py-2 bg-pink-600 text-white rounded hover:bg-blue-700"
+        onClick={() => navigate("/home")}
+      >
+        ✅ Back to Restaurants
+      </button>
+
       {restaurantInfo && (
         <>
           <h1 className="text-2xl font-bold mb-2">{restaurantInfo.name}</h1>
