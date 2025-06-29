@@ -58,3 +58,7 @@
 .contact-button:hover {
   background-color: #10b981;
 }
+
+.about-container h2 {
+  font-size: 24px;
+}
