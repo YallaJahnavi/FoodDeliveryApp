@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const navigate = useNavigate(); // ✅ Navigation hook
+  const navigate = useNavigate();
   const [restaurantData, setRestaurantData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedItems, setSelectedItems] = useState({});
 
   useEffect(() => {
     fetchRestaurantMenu();
@@ -39,14 +40,39 @@ const RestaurantMenu = () => {
     (card) => card?.groupedCard
   )?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
+  const handleCheckboxChange = (itemId, itemInfo) => {
+    setSelectedItems((prev) => {
+      const newSelection = { ...prev };
+      if (newSelection[itemId]) {
+        delete newSelection[itemId];
+      } else {
+        newSelection[itemId] = itemInfo;
+      }
+      return newSelection;
+    });
+  };
+
+  const handleAddToCart = () => {
+    console.log("Items added to cart:", Object.values(selectedItems));
+    alert("Selected items added to cart!");
+    // You can dispatch to Redux store here
+  };
+
+  const handleBuyNow = () => {
+    console.log("Proceed to buy:", Object.values(selectedItems));
+    alert("Redirecting to checkout...");
+    // You can navigate to checkout page with selected items
+    // navigate('/checkout', { state: { items: Object.values(selectedItems) } });
+  };
+
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      {/* ✅ Back Button */}
+      {/* Back Button */}
       <button
-        className="mb-4 px-4 py-2 bg-pink-600 text-white rounded hover:bg-blue-700"
+        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         onClick={() => navigate("/home")}
       >
-        ✅ Back to Restaurants
+        ← Back to Restaurants
       </button>
 
       {restaurantInfo && (
@@ -61,15 +87,51 @@ const RestaurantMenu = () => {
       <ul className="space-y-2">
         {menuCards?.map((menuItem, index) => {
           const item = menuItem.card?.card?.itemCards?.[0]?.card?.info;
+          if (!item) return null;
           return (
-            item && (
-              <li key={index} className="border-b pb-2">
+            <li key={index} className="flex items-center gap-3 border-b pb-2">
+              <input
+                type="checkbox"
+                checked={!!selectedItems[item.id]}
+                onChange={() => handleCheckboxChange(item.id, item)}
+              />
+              <label className="flex-1">
                 {item.name} - ₹{(item.price || item.defaultPrice) / 100}
-              </li>
-            )
+              </label>
+            </li>
           );
         })}
       </ul>
+
+      {/* ✅ Selected Items & Buttons */}
+      {Object.keys(selectedItems).length > 0 && (
+        <div className="mt-6 bg-gray-100 p-4 rounded shadow">
+          <h3 className="text-lg font-semibold mb-2">Selected Items:</h3>
+          <ul className="list-disc ml-5 mb-4">
+            {Object.values(selectedItems).map((item) => (
+              <li key={item.id}>
+                {item.name} - ₹{(item.price || item.defaultPrice) / 100}
+              </li>
+            ))}
+          </ul>
+
+          {/* ✅ Action Buttons */}
+          <div className="flex gap-4">
+            <button
+              onClick={handleAddToCart}
+              className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+            >
+              Add to Cart
+            </button>
+            <button
+              onClick={handleBuyNow}
+              className="px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700"
+            >
+              Buy Now
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
