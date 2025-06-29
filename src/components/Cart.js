@@ -7,11 +7,24 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // ✅ Calculate total cart value
+  // ✅ Total cart value calculation
   const totalAmount = cartItems.reduce((total, item) => {
     const price = item.price || item.defaultPrice || 0;
     return total + price / 100;
   }, 0);
+
+  // ✅ Buy Now handler
+  const handleBuyNow = () => {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+
+    console.log("Proceeding to buy:", cartItems);
+    alert("Thank you for your order!");
+    // Optionally: navigate("/checkout", { state: { items: cartItems } });
+    dispatch(clearCart()); // Optional: clear cart after order
+  };
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
@@ -54,13 +67,20 @@ const Cart = () => {
             ))}
           </ul>
 
-          {/* Total Price */}
+          {/* Total Amount */}
           <div className="text-right text-lg font-semibold mb-4 text-green-800">
             Total: ₹{totalAmount.toFixed(2)}
           </div>
 
-          {/* Clear Cart Button */}
-          <div className="text-right">
+          {/* Action Buttons */}
+          <div className="flex justify-end gap-4">
+            <button
+              onClick={handleBuyNow}
+              className="px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700"
+            >
+              Buy Now
+            </button>
+
             <button
               onClick={() => dispatch(clearCart())}
               className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700"
