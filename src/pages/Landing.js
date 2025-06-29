@@ -1,6 +1,6 @@
 // Landing.js
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.jpg"; // Your local logo
+//import logo from "../assets/logo.jpg"; // Your local logo
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Landing = () => {
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <img
-  src={logo}
+  src="https://t3.ftcdn.net/jpg/02/02/07/56/360_F_202075610_MGQKkqilBtXnLwMtWlSDvFrrW2kbYYgl.jpg"
   alt="TMF Logo"
   className="h-36 w-36 rounded-full object-cover border-4 border-black-500 shadow-lg transition-transform duration-300 hover:scale-105"
 />
