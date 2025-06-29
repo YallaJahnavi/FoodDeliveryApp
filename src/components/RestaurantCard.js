@@ -44,6 +44,7 @@ const RestaurantCard = (props) => {
             FOR TWO
           </p>
           <p>{sla?.deliveryTime || 30} mins</p>
+          
         </div>
       </div>
     </div>
@@ -63,4 +64,3 @@ export const withPromtedLabel = (RestaurantCard) => {
 };
 
 export default RestaurantCard;
-
