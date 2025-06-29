@@ -26,7 +26,7 @@ const Header = () => {
       <div className="logo-container p-4">
         <img
           className="logo-img"
-          src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7e/0e/42/7e0e4245-9e3b-e243-2d77-c5b5016002a6/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/1200x630wa.png"
+          src="https://t3.ftcdn.net/jpg/02/02/07/56/360_F_202075610_MGQKkqilBtXnLwMtWlSDvFrrW2kbYYgl.jpg"
           alt="Swiggy Logo"
         />
       </div>
@@ -37,10 +37,11 @@ const Header = () => {
             Online Status:{" "}
             <span style={{ fontSize: "20px" }}>{isLoggedIn ? "✅" : "🔴"}</span>
           </li>
-  
+
+          {/* ✅ Updated NavLink path to /home/about */}
           <li>
             <NavLink
-              to="/about"
+              to="/home/about"
               className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
             >
               About Us
@@ -49,7 +50,7 @@ const Header = () => {
 
           <li>
             <NavLink
-              to="/contact"
+              to="/home/contact"
               className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
             >
               Contact Us
@@ -58,7 +59,7 @@ const Header = () => {
 
           <li>
             <NavLink
-              to="/grocery"
+              to="/home/grocery"
               className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
             >
               Grocery
@@ -67,7 +68,7 @@ const Header = () => {
 
           <li>
             <NavLink
-              to="/cart"
+              to="/home/cart"
               className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
             >
               Cart - ({cartItems.length} items)
