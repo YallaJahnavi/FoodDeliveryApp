@@ -55,7 +55,7 @@ const RestaurantMenu = () => {
     console.log("Proceeding to buy:", Object.values(selectedItems));
     alert("Proceeding to buy...");
     // Optional: navigate to /checkout page with selected items
-    // navigate("/checkout", { state: { items: Object.values(selectedItems) } });
+    navigate("/checkout", { state: { items: Object.values(selectedItems) } });
   };
 
   if (isLoading) return <h2 className="text-center mt-10">Loading...</h2>;
@@ -144,3 +144,4 @@ const RestaurantMenu = () => {
 };
 
 export default RestaurantMenu;
+
