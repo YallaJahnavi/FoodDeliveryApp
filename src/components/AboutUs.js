@@ -8,7 +8,7 @@ const AboutUs = () => {
   const { isLoggedIn } = useContext(UserContext); // ✅ Access login state
 
   const handleBack = () => {
-    navigate(-1);
+    navigate("/home");
   };
 
   const goToContact = () => {
