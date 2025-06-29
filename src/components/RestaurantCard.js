@@ -1,15 +1,6 @@
 import { useContext } from "react";
 import UserContext from "../utils/UserContext";
 
-// Static image map based on restaurant name
-const restaurantImages = {
-  "Burger King": "/images/burger-king.jpeg",
-  "Pizza Hut": "/images/pizza-hut.jpeg",
-  //"EatFit": "/images/eatfit.jpg",
-  //"NIC Ice Creams": "/images/nic-ice-creams.jpg",
-  // Add more mappings as needed
-};
-
 const RestaurantCard = (props) => {
   const { resData } = props;
   const { loggedInUser } = useContext(UserContext);
@@ -23,12 +14,10 @@ const RestaurantCard = (props) => {
     sla = {},
   } = resData || {};
 
-  // Static image from map if available; otherwise fallback to dynamic Cloudinary or placeholder
-  const imageUrl =
-    restaurantImages[name] ||
-    (cloudinaryImageId
-      ? `https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${cloudinaryImageId}`
-      : "https://via.placeholder.com/300x200?text=No+Image");
+  // ✅ Dynamically build image URL from cloudinaryImageId or fallback
+  const imageUrl = cloudinaryImageId
+    ? `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${cloudinaryImageId}`
+    : "https://via.placeholder.com/300x200?text=No+Image";
 
   return (
     <div
@@ -62,7 +51,7 @@ const RestaurantCard = (props) => {
   );
 };
 
-// Higher Order Component to add 'Promoted' label
+// ✅ Higher Order Component to add 'Promoted' label
 export const withPromtedLabel = (RestaurantCard) => {
   return (props) => (
     <div className="relative">
@@ -75,3 +64,4 @@ export const withPromtedLabel = (RestaurantCard) => {
 };
 
 export default RestaurantCard;
+
