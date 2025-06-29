@@ -12,7 +12,7 @@ import Cart from "./components/Cart";
 
 // Lazy imports
 const Grocery = lazy(() => import("./components/Grocery"));
-const About = lazy(() => import("./components/About"));
+const About = lazy(() => import("./components/AboutUs"));
 
 // ✅ Auth pages
 import Landing from "./pages/Landing";
