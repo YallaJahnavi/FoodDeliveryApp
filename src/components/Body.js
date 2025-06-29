@@ -56,7 +56,16 @@ const Body = () => {
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body-container p-4 max-w-7xl mx-auto">
+    <div
+      className="min-h-screen bg-cover bg-center px-4 py-6"
+      style={{
+        backgroundImage:
+          "url('https://t3.ftcdn.net/jpg/02/02/07/56/360_F_202075610_MGQKkqilBtXnLwMtWlSDvFrrW2kbYYgl.jpg')",
+          backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+      }}
+    >
       {/* Filter/Search Section */}
       <div className="filter flex flex-wrap gap-4 mb-6 items-center justify-center">
         <div className="search flex items-center gap-2">
@@ -80,7 +89,6 @@ const Body = () => {
             Search
           </button>
         </div>
-
       </div>
 
       {/* Restaurant Cards Section */}
@@ -109,3 +117,4 @@ const Body = () => {
 };
 
 export default Body;
+
