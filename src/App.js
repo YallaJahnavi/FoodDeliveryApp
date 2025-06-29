@@ -11,7 +11,7 @@ import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
 
 // Lazy imports
-const Grocery = lazy(() => import("./components/Grocery"));
+//const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/AboutUs"));
 
 // ✅ Auth pages
@@ -71,14 +71,6 @@ const appRouter = createBrowserRouter([
         ),
       },
       { path: "/home/contact", element: <Contact /> },
-      {
-        path: "/home/grocery",
-        element: (
-          <Suspense fallback={<h1>Loading....</h1>}>
-            <Grocery />
-          </Suspense>
-        ),
-      },
       { path: "/home/restaurants/:resId", element: <RestaurantMenu /> },
       { path: "/home/cart", element: <Cart /> },
     ],
