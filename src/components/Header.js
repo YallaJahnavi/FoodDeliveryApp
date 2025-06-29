@@ -58,14 +58,6 @@ const Header = () => {
             </NavLink>
           </li>
 
-          <li>
-            <NavLink
-              to="/home/grocery"
-              className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
-            >
-              Grocery
-            </NavLink>
-          </li>
 
           <li>
             <NavLink
@@ -91,4 +83,3 @@ const Header = () => {
 };
 
 export default Header;
-
