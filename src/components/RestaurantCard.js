@@ -44,7 +44,6 @@ const RestaurantCard = (props) => {
             FOR TWO
           </p>
           <p>{sla?.deliveryTime || 30} mins</p>
-          <p className="text-gray-500 text-xs">User: {loggedInUser}</p>
         </div>
       </div>
     </div>
