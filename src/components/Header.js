@@ -1,13 +1,15 @@
 import { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserContext from "../utils/UserContext";
 import "./Header.css";
 
 const Header = () => {
-  const navigate = useNavigate(); // ✅ Initialize navigate
+  const navigate = useNavigate();
   const { loggedInUser, setUserName, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
-  const cartItems = useSelector((store) => store.cart.items);
+
+  // ✅ Fallback in case store.cart is not yet populated
+  const cartItems = useSelector((store) => store.cart || []);
 
   const handleLoginLogout = () => {
     if (isLoggedIn) {
@@ -16,7 +18,7 @@ const Header = () => {
     } else {
       setIsLoggedIn(true);
       setUserName("Jahnavi");
-      navigate("/login"); // ✅ Redirect to login page after clicking Login
+      navigate("/login");
     }
   };
 
@@ -25,6 +27,7 @@ const Header = () => {
 
   return (
     <div className="flex justify-between items-start bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
+      {/* Logo Section */}
       <div className="logo-container p-4">
         <img
           className="logo-img"
@@ -33,6 +36,7 @@ const Header = () => {
         />
       </div>
 
+      {/* Navigation Links */}
       <div className="flex items-center">
         <ul className="flex p-4 m-4 items-center gap-4">
           <li>
@@ -58,13 +62,12 @@ const Header = () => {
             </NavLink>
           </li>
 
-
           <li>
             <NavLink
               to="/home/cart"
               className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
             >
-              Cart - ({cartItems.length} items)
+              Cart - ({cartItems.length || 0} items)
             </NavLink>
           </li>
 
