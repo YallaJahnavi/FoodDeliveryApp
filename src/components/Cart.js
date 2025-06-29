@@ -1,34 +1,51 @@
-import { useSelector } from "react-redux";
-import { clearCart } from "../utils/cartSlice";
-import ItemList from "./ItemList";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeItem, clearCart } from "../utils/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const cartItems = useSelector((store) => store.cart.items);
-
-  console.log(cartItems);
-
+  const cartItems = useSelector((store) => store.cart);
   const dispatch = useDispatch();
-
-  const handleClearCart = () => {
-    dispatch(clearCart());
-  };
+  const navigate = useNavigate(); // ✅ Initialize navigate
 
   return (
-    <div className="text-center m-4 p-4">
-      <h1 className="text-2xl font-bold">Cart</h1>
-      <div className="w-6/12 m-auto">
-        <button
-          className=" p-2 m-2 bg-black text-white rounded-lg"
-          onClick={handleClearCart}
-        >
-          Clear Cart
-        </button>
-        {cartItems?.length === 0 && (
-          <h1> Cart is empty. Add Items to the cart!</h1>
-        )}
-        <ItemList items={cartItems} />
-      </div>
+    <div className="p-6 max-w-3xl mx-auto">
+      {/* ✅ Back Button */}
+      <button
+        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        onClick={() => navigate("/home")}
+      >
+        ← Back to Restaurants
+      </button>
+
+      <h1 className="text-2xl font-bold mb-4">🛒 Your Cart</h1>
+
+      {cartItems.length === 0 ? (
+        <p className="text-gray-500">Your cart is empty.</p>
+      ) : (
+        <>
+          <ul className="space-y-3 mb-6">
+            {cartItems.map((item, index) => (
+              <li key={index} className="flex justify-between items-center border-b pb-2">
+                <span>{item.name}</span>
+                <span>₹{(item.price || item.defaultPrice) / 100}</span>
+                <button
+                  onClick={() => dispatch(removeItem(item.id))}
+                  className="text-red-500 hover:underline text-sm ml-4"
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <button
+            onClick={() => dispatch(clearCart())}
+            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+          >
+            Clear Cart
+          </button>
+        </>
+      )}
     </div>
   );
 };
