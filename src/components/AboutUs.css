@@ -1,0 +1,60 @@
+.about-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #fffbe6;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+.about-container h1 {
+  color: #e67e22;
+}
+.about-container ul {
+  padding-left: 20px;
+}
+.about-container ul li {
+  margin-bottom: 8px;
+}
+.about-container a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.back-button {
+  margin-bottom: 20px;
+  background-color: #fef3c7;
+  border: 1px solid #fbbf24;
+  color: #92400e;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #fde68a;
+  border-color: #f59e0b;
+}
+
+.contact-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #34d399;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: background-color 0.2s ease;
+  z-index: 999;
+}
+
+.contact-button:hover {
+  background-color: #10b981;
+}
