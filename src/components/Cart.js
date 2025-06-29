@@ -1,11 +1,24 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeItem, clearCart } from "../utils/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react"; // ✅ Step 1
+import UserContext from "../utils/UserContext"; // ✅ Step 1
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { isLoggedIn } = useContext(UserContext); // ✅ Step 2
+
+  // ✅ If user is logged out, show message and return early
+  if (!isLoggedIn) {
+    return (
+      <div className="text-center text-red-600 text-xl mt-20">
+        User Logged Out Successfully
+      </div>
+    );
+  }
 
   // ✅ Total cart value calculation
   const totalAmount = cartItems.reduce((total, item) => {
@@ -20,10 +33,8 @@ const Cart = () => {
       return;
     }
 
-    console.log("Proceeding to buy:", cartItems);
     alert("Thank you for your order!");
-    // Optionally: navigate("/checkout", { state: { items: cartItems } });
-    dispatch(clearCart()); // Optional: clear cart after order
+    dispatch(clearCart());
   };
 
   return (
