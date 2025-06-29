@@ -47,6 +47,7 @@ const RestaurantMenu = () => {
   const handleAddToCart = () => {
     const itemsArray = Object.values(selectedItems);
     dispatch(addItemsToCart(itemsArray));
+    alert("Items added to cart successfully!"); // ✅ Alert message
     navigate("/home/cart");
   };
 
@@ -58,7 +59,8 @@ const RestaurantMenu = () => {
   };
 
   if (isLoading) return <h2 className="text-center mt-10">Loading...</h2>;
-  if (!restaurantData) return <h2 className="text-center mt-10 text-red-500">Failed to load restaurant details.</h2>;
+  if (!restaurantData)
+    return <h2 className="text-center mt-10 text-red-500">Failed to load restaurant details.</h2>;
 
   const restaurantInfoCard = restaurantData?.cards?.find(
     (card) => card?.card?.card?.info
