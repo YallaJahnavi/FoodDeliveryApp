@@ -61,9 +61,9 @@ const Body = () => {
       style={{
         backgroundImage:
           "url('https://t3.ftcdn.net/jpg/02/02/07/56/360_F_202075610_MGQKkqilBtXnLwMtWlSDvFrrW2kbYYgl.jpg')",
-          backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Filter/Search Section */}
@@ -101,7 +101,7 @@ const Body = () => {
           filteredRestaurant.map((restaurant) => (
             <Link
               key={restaurant?.info.id}
-              to={`/app/restaurants/${restaurant?.info.id}`}
+              to={`/home/restaurants/${restaurant?.info.id}`} // ✅ Corrected route
             >
               {restaurant?.info.promoted ? (
                 <RestaurantCardPromoted resData={restaurant?.info} />
@@ -117,4 +117,3 @@ const Body = () => {
 };
 
 export default Body;
-
