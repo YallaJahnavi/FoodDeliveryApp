@@ -1,24 +1,24 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeItem, clearCart } from "../utils/cartSlice";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react"; // ✅ Step 1
-import UserContext from "../utils/UserContext"; // ✅ Step 1
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoggedIn } = useContext(UserContext); // ✅ Step 2
+  const { isLoggedIn } = useContext(UserContext);
 
-  // ✅ If user is logged out, show message and return early
-  if (!isLoggedIn) {
-    return (
-      <div className="text-center text-red-600 text-xl mt-20">
-        User Logged Out Successfully
-      </div>
-    );
-  }
+  // ✅ Handle "Buy Now" redirect
+  const handleBuyNow = () => {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+    navigate("/home/checkout"); // ✅ Redirect to checkout page
+  };
 
   // ✅ Total cart value calculation
   const totalAmount = cartItems.reduce((total, item) => {
@@ -26,16 +26,14 @@ const Cart = () => {
     return total + price / 100;
   }, 0);
 
-  // ✅ Buy Now handler
-  const handleBuyNow = () => {
-    if (cartItems.length === 0) {
-      alert("Your cart is empty.");
-      return;
-    }
-
-    alert("Thank you for your order!");
-    dispatch(clearCart());
-  };
+  // ✅ Logout condition
+  if (!isLoggedIn) {
+    return (
+      <div className="text-center text-red-600 text-xl mt-20">
+        User Logged Out Successfully
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
