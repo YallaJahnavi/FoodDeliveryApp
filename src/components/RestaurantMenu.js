@@ -62,8 +62,15 @@ const RestaurantMenu = () => {
   };
 
   const handleBuyNow = () => {
-    navigate("/checkout", { state: { cartItems: Object.values(selectedItems) } });
-  };
+  const itemsArray = Object.values(selectedItems);
+  navigate("/home/checkout", {
+    state: {
+      cartItems: itemsArray,
+      restaurantName: restaurantInfo?.name || "Selected Restaurant",
+      isBuyNow: true,
+    },
+  });
+};
 
   if (isLoading) return <h2 className="text-center mt-10">Loading...</h2>;
   if (!restaurantData)
