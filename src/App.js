@@ -76,6 +76,8 @@ const appRouter = createBrowserRouter([
       { path: "/home/restaurants/:resId", element: <RestaurantMenu /> },
       { path: "/home/cart", element: <Cart /> },
       { path: "/home/checkout", element: <Checkout />},
+      { path: "/home/order", element: <Order /> }, // 👈 Make sure this is also /home/order
+
       {
       path: "order",
       element: <Order />, // This is your Order.js component
