@@ -1,48 +1,42 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 
 const Order = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-
-  // Get cart items if passed from Checkout (optional)
   const cartItems = location.state?.cartItems || [];
 
-  // Optional: Redirect to home after 5 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate("/home");
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [navigate]);
+  const totalAmount = cartItems.reduce((total, item) => {
+    const price = item.price || item.defaultPrice || 0;
+    return total + price / 100;
+  }, 0);
 
   return (
-    <div className="p-6 text-center max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold text-green-700 mb-4">
-        🎉 Thank you for your order!
-      </h1>
-      <p className="text-lg text-gray-700 mb-6">
-        Your delicious food is being prepared and will be delivered soon.
-      </p>
+    <div className="p-6 max-w-3xl mx-auto">
+      <h1 className="text-2xl font-bold text-center mb-6">🎉 Order Confirmed!</h1>
 
-      {cartItems.length > 0 && (
-        <div className="mb-4">
-          <h2 className="text-xl font-semibold mb-2 text-gray-800">Ordered Items:</h2>
-          <ul className="text-left space-y-1">
+      {cartItems.length === 0 ? (
+        <p className="text-center text-gray-500">No items found in the order.</p>
+      ) : (
+        <>
+          <ul className="space-y-4 mb-6">
             {cartItems.map((item, index) => (
-              <li key={index} className="flex justify-between border-b pb-1">
-                <span>{item.name}</span>
-                <span className="text-green-600 font-medium">
+              <li
+                key={index}
+                className="flex justify-between items-center border-b pb-2"
+              >
+                <p className="font-medium text-gray-800">{item.name}</p>
+                <p className="text-green-700 font-semibold">
                   ₹{(item.price || item.defaultPrice) / 100}
-                </span>
+                </p>
               </li>
             ))}
           </ul>
-        </div>
-      )}
 
-      <p className="text-sm text-gray-500">Redirecting to home page in a few seconds...</p>
+          <div className="text-right text-lg font-semibold text-green-800">
+            Total Paid: ₹{totalAmount.toFixed(2)}
+          </div>
+        </>
+      )}
     </div>
   );
 };
