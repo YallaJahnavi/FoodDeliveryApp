@@ -5,28 +5,26 @@ import { useContext } from "react";
 import UserContext from "../utils/UserContext";
 
 const Cart = () => {
-  const cartItems = useSelector((store) => store.cart);
+  const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { isLoggedIn } = useContext(UserContext);
 
-  // ✅ Handle "Buy Now" redirect
+  // ✅ Handle "Buy Now" redirect with cart data
   const handleBuyNow = () => {
     if (cartItems.length === 0) {
       alert("Your cart is empty.");
       return;
     }
-    navigate("/home/checkout"); // ✅ Redirect to checkout page
+    navigate("/home/checkout", { state: { cartItems } }); // ✅ Send data to Checkout
   };
 
-  // ✅ Total cart value calculation
   const totalAmount = cartItems.reduce((total, item) => {
     const price = item.price || item.defaultPrice || 0;
     return total + price / 100;
   }, 0);
 
-  // ✅ Logout condition
   if (!isLoggedIn) {
     return (
       <div className="text-center text-red-600 text-xl mt-20">
@@ -37,7 +35,6 @@ const Cart = () => {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      {/* Back Button */}
       <button
         className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         onClick={() => navigate("/home")}
@@ -51,7 +48,6 @@ const Cart = () => {
         <p className="text-gray-500 text-center">Your cart is empty.</p>
       ) : (
         <>
-          {/* Cart Items */}
           <ul className="space-y-4 mb-6">
             {cartItems.map((item, index) => (
               <li
@@ -76,12 +72,10 @@ const Cart = () => {
             ))}
           </ul>
 
-          {/* Total Amount */}
           <div className="text-right text-lg font-semibold mb-4 text-green-800">
             Total: ₹{totalAmount.toFixed(2)}
           </div>
 
-          {/* Action Buttons */}
           <div className="flex justify-end gap-4">
             <button
               onClick={handleBuyNow}
