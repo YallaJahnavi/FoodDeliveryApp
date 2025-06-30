@@ -8,8 +8,8 @@ const Header = () => {
   const navigate = useNavigate();
   const { loggedInUser, setUserName, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
 
-  // ✅ Fallback in case store.cart is not yet populated
-  const cartItems = useSelector((store) => store.cart || []);
+  // ✅ FIXED: Get cartItems from store.cart.items
+  const cartItems = useSelector((store) => store.cart.items);
 
   const handleLoginLogout = () => {
     if (isLoggedIn) {
@@ -27,7 +27,6 @@ const Header = () => {
 
   return (
     <div className="flex justify-between items-start bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
-      {/* Logo Section */}
       <div className="logo-container p-4">
         <img
           className="logo-img"
@@ -36,7 +35,6 @@ const Header = () => {
         />
       </div>
 
-      {/* Navigation Links */}
       <div className="flex items-center">
         <ul className="flex p-4 m-4 items-center gap-4">
           <li>
