@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 import Contact from "./components/Contact";
 import Checkout from "./components/Checkout";
-import Order from "./components/Order";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
@@ -76,11 +75,6 @@ const appRouter = createBrowserRouter([
       { path: "/home/restaurants/:resId", element: <RestaurantMenu /> },
       { path: "/home/cart", element: <Cart /> },
       { path: "/home/checkout", element: <Checkout />},
-      {
-        path: "checkout/order", // ✅ Your desired route
-        element: <Order />,
-      },
-
 
     ],
   },
