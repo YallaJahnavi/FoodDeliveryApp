@@ -10,6 +10,12 @@ const Checkout = () => {
     return total + price / 100;
   }, 0);
 
+  const handlePlaceOrder = () => {
+  alert("✅ Order placed successfully!");
+  navigate("/home/order", { state: { cartItems } });
+};
+
+
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <button
@@ -47,7 +53,7 @@ const Checkout = () => {
 
           <div className="text-center">
             <button
-              onClick={() => alert("✅ Order placed successfully!")}
+              onClick={handlePlaceOrder}
               className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
             >
               Place Order
