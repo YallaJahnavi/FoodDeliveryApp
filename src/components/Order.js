@@ -1,9 +1,13 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../utils/cartSlice"; // ✅ Adjust path as needed
 
 const Order = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const cartItems = location.state?.cartItems || [];
 
   const grandTotal = cartItems.reduce((total, item) => {
@@ -11,20 +15,23 @@ const Order = () => {
     return total + price * (item.quantity || 1);
   }, 0);
 
+  // ✅ When user clicks "Back to Home", clear cart and navigate
+  const handleBackToHome = () => {
+    dispatch(clearCart());          // Clear the cart
+    navigate("/home");             // Redirect to home
+  };
+
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      {/* Back to Home Button */}
       <button
         className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        onClick={() => navigate("/home")}
+        onClick={handleBackToHome}
       >
         ← Back to Home
       </button>
 
-      {/* Order Confirmation Heading */}
       <h1 className="text-2xl font-bold text-center mb-6">🎉 Order Confirmed!</h1>
 
-      {/* Brand Title */}
       <h2 className="text-3xl font-extrabold text-center mb-8 text-orange-600 drop-shadow-lg tracking-wide uppercase">
         TMF <span className="text-gray-800">[Tasty Meals Feast]</span>
       </h2>
