@@ -38,24 +38,31 @@ const RestaurantMenu = () => {
       if (newSelection[itemId]) {
         delete newSelection[itemId];
       } else {
-        newSelection[itemId] = itemInfo;
+        newSelection[itemId] = { ...itemInfo, quantity: 1 };
       }
       return newSelection;
     });
   };
 
+  const handleQuantityChange = (itemId, quantity) => {
+    setSelectedItems((prev) => ({
+      ...prev,
+      [itemId]: {
+        ...prev[itemId],
+        quantity: parseInt(quantity),
+      },
+    }));
+  };
+
   const handleAddToCart = () => {
     const itemsArray = Object.values(selectedItems);
     dispatch(addItemsToCart(itemsArray));
-    alert("Items added to cart successfully!"); // ✅ Alert message
+    alert("Items added to cart successfully!");
     navigate("/home/cart");
   };
 
   const handleBuyNow = () => {
-    console.log("Proceeding to buy:", Object.values(selectedItems));
-    alert("Proceeding to buy...");
-    // Optional: navigate to /checkout page with selected items
-    navigate("/checkout", { state: { items: Object.values(selectedItems) } });
+    navigate("/checkout", { state: { cartItems: Object.values(selectedItems) } });
   };
 
   if (isLoading) return <h2 className="text-center mt-10">Loading...</h2>;
@@ -73,7 +80,6 @@ const RestaurantMenu = () => {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      {/* Back Button */}
       <button
         className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         onClick={() => navigate("/home")}
@@ -81,7 +87,6 @@ const RestaurantMenu = () => {
         ← Back to Restaurants
       </button>
 
-      {/* Restaurant Info */}
       {restaurantInfo && (
         <>
           <h1 className="text-2xl font-bold mb-2">{restaurantInfo.name}</h1>
@@ -90,7 +95,6 @@ const RestaurantMenu = () => {
         </>
       )}
 
-      {/* Menu Items */}
       <h2 className="text-xl font-semibold mb-3">Menu</h2>
       <ul className="space-y-2">
         {menuCards?.map((menuItem, index) => {
@@ -106,19 +110,34 @@ const RestaurantMenu = () => {
               <label className="flex-1">
                 {item.name} - ₹{(item.price || item.defaultPrice) / 100}
               </label>
+
+              {/* ✅ Quantity Selector */}
+              {selectedItems[item.id] && (
+                <select
+                  className="ml-2 px-2 py-1 border rounded"
+                  value={selectedItems[item.id].quantity}
+                  onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                >
+                  {[...Array(10)].map((_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
+              )}
             </li>
           );
         })}
       </ul>
 
-      {/* Selected Items + Actions */}
       {Object.keys(selectedItems).length > 0 && (
         <div className="mt-6 bg-gray-100 p-4 rounded shadow">
           <h3 className="text-lg font-semibold mb-2">Selected Items:</h3>
           <ul className="list-disc ml-5 mb-4">
             {Object.values(selectedItems).map((item) => (
               <li key={item.id}>
-                {item.name} - ₹{(item.price || item.defaultPrice) / 100}
+                {item.name} x {item.quantity} = ₹
+                {((item.price || item.defaultPrice) / 100) * item.quantity}
               </li>
             ))}
           </ul>
@@ -144,4 +163,3 @@ const RestaurantMenu = () => {
 };
 
 export default RestaurantMenu;
-
