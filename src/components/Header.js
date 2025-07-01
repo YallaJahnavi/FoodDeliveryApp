@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <div className="flex justify-between items-center px-6 py-4 bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
-      {/* Left: Logo + App Name + Animated Subtitle */}
+      {/* Left: Logo + App Name */}
       <div className="flex items-center gap-4">
         <img
           className="w-14 h-14 rounded-full object-cover shadow"
@@ -40,12 +40,12 @@ const Header = () => {
             TASTY MEALS FEAST
           </h1>
           <p className="animated-subtitle text-xl italic text-gray-600 mt-1">
-            Eater's Hunger.....😋
+            📌Eater's Hunger.....😋
           </p>
         </div>
       </div>
 
-      {/* Right: Navigation Links + Cart + Login */}
+      {/* Right: Navigation + Status + Login/Logout */}
       <ul className="flex p-4 m-4 items-center gap-6 text-lg">
         <li>
           Online Status:{" "}
@@ -57,7 +57,7 @@ const Header = () => {
             to="/home/about"
             className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
           >
-            About Us
+            About Us🧑‍🧑‍🧒‍🧒
           </NavLink>
         </li>
 
@@ -66,7 +66,7 @@ const Header = () => {
             to="/home/contact"
             className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
           >
-            Contact Us
+            Contact Us📞
           </NavLink>
         </li>
 
@@ -75,7 +75,7 @@ const Header = () => {
             to="/home/my-orders"
             className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
           >
-            My Orders
+            My Orders📜
           </NavLink>
         </li>
 
@@ -84,16 +84,22 @@ const Header = () => {
             to="/home/cart"
             className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
           >
-            Cart - ({cartItems.length || 0} items)
+            Cart - ({cartItems.length || 0} items)🛒
           </NavLink>
         </li>
 
         <li>
           <button
-            className="px-4 py-1 bg-green-200 rounded hover:bg-green-300"
+            className={`px-4 py-1 rounded ${
+              isLoggedIn
+                ? "bg-green-200 hover:bg-green-300 cursor-pointer"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }`}
             onClick={handleLoginLogout}
+            disabled={!isLoggedIn}
+            title={!isLoggedIn ? "Login Again to enable" : ""}
           >
-            {isLoggedIn ? "Logout" : "Login"}
+            {isLoggedIn ? "Logout" : "Logged Out"}
           </button>
         </li>
       </ul>
