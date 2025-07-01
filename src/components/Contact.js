@@ -41,14 +41,20 @@ const Contact = () => {
     }
   };
 
-  // 🔴 If user is logged out — show logout message (styled like About Us page)
+  // 🔴 If user is logged out — show logout message and Login Again button
   if (!isLoggedIn) {
     return (
       <div className="min-h-screen flex justify-center items-center bg-white p-4">
-        <div className="bg-yellow-50 p-10 rounded-lg shadow-md">
-          <h2 className="text-2xl text-red-600 text-center">
+        <div className="bg-yellow-50 p-10 rounded-lg shadow-md text-center">
+          <h2 className="text-2xl text-red-600 mb-4">
             User Logged Out Successfully
           </h2>
+          <button
+            onClick={() => navigate("/login")}
+            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Login Again
+          </button>
         </div>
       </div>
     );
