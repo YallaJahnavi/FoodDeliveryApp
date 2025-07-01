@@ -1,0 +1,17 @@
+/* Checkout.css */
+.checkout-wrapper {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfL5SMxfYXhNXBx11O68CI0oW9RpIz7ay_7g&s");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 20px;
+}
+
+.checkout-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 700px;
+  margin: auto;
+}
