@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../utils/UserContext"; // ✅ For login state
+import "./Contact.css"; // ✅ For background image styling
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -22,7 +23,6 @@ const Contact = () => {
 
     try {
       const res = await fetch("https://formspree.io/f/mgvyrgkz", {
-        // 🔁 Replace with your actual Formspree or backend endpoint
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,63 +62,65 @@ const Contact = () => {
 
   // ✅ If user is logged in — show form and back button
   return (
-    <div className="min-h-screen bg-white p-6 relative">
-      <button
-        onClick={() => navigate("/home")}
-        className="absolute top-4 left-4 bg-yellow-100 px-3 py-1 rounded hover:bg-yellow-200"
-      >
-        ⬅️ Back to Home
-      </button>
-
-      <h1 className="text-4xl font-bold mb-8 mt-16 text-center">Contact Us</h1>
-
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-lg mx-auto bg-gray-100 p-6 rounded-lg shadow-md"
-      >
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          className="w-full p-3 mb-4 border border-gray-300 rounded"
-        />
-
-        <textarea
-          name="message"
-          placeholder="Message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-          className="w-full p-3 mb-4 border border-gray-300 rounded"
-        />
-
-        <input
-          type="text"
-          name="ratings"
-          placeholder="Ratings (1–5)"
-          value={formData.ratings}
-          onChange={handleChange}
-          className="w-full p-3 mb-4 border border-gray-300 rounded"
-        />
-
-        <textarea
-          name="suggestions"
-          placeholder="Suggestions"
-          value={formData.suggestions}
-          onChange={handleChange}
-          className="w-full p-3 mb-4 border border-gray-300 rounded"
-        />
-
+    <div className="contact-wrapper">
+      <div className="contact-content relative">
         <button
-          type="submit"
-          className="w-full bg-green-500 text-white p-3 rounded hover:bg-green-600"
+          onClick={() => navigate("/home")}
+          className="absolute top-4 left-4 bg-yellow-100 px-3 py-1 rounded hover:bg-yellow-200"
         >
-          Submit
+          ⬅️ Back to Home
         </button>
-      </form>
+
+        <h1 className="text-4xl font-bold mb-8 mt-16 text-center">Contact Us</h1>
+
+        <form
+          onSubmit={handleSubmit}
+          className="bg-gray-100 p-6 rounded-lg shadow-md"
+        >
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full p-3 mb-4 border border-gray-300 rounded"
+          />
+
+          <textarea
+            name="message"
+            placeholder="Message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            className="w-full p-3 mb-4 border border-gray-300 rounded"
+          />
+
+          <input
+            type="text"
+            name="ratings"
+            placeholder="Ratings (1–5)"
+            value={formData.ratings}
+            onChange={handleChange}
+            className="w-full p-3 mb-4 border border-gray-300 rounded"
+          />
+
+          <textarea
+            name="suggestions"
+            placeholder="Suggestions"
+            value={formData.suggestions}
+            onChange={handleChange}
+            className="w-full p-3 mb-4 border border-gray-300 rounded"
+          />
+
+          <button
+            type="submit"
+            className="w-full bg-green-500 text-white p-3 rounded hover:bg-green-600"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
