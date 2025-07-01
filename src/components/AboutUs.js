@@ -15,15 +15,22 @@ const AboutUs = () => {
     navigate("/home/contact");
   };
 
-  // ✅ If not logged in, show only logout message (no back button)
+  // ✅ If not logged in, show logout message + Login Again button
   if (!isLoggedIn) {
-  return (
-    <div className="about-container">
-      <div className="logout-message">User Logged Out Successfully</div>
-    </div>
-  );
-}
-
+    return (
+      <div className="about-container text-center">
+        <div className="logout-message text-red-600 text-xl font-semibold mb-4">
+          User Logged Out Successfully
+        </div>
+        <button
+          onClick={() => navigate("/login")}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Login Again
+        </button>
+      </div>
+    );
+  }
 
   // ✅ Show About content only if logged in
   return (
