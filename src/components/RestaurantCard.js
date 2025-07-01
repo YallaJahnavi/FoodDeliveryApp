@@ -12,6 +12,8 @@ const RestaurantCard = (props) => {
     cuisines = [],
     costForTwo = 20000,
     sla = {},
+    areaName = "",
+    locality = "",
   } = resData || {};
 
   // ✅ Dynamically build image URL from cloudinaryImageId or fallback
@@ -22,7 +24,7 @@ const RestaurantCard = (props) => {
   return (
     <div
       data-testid="resCard"
-      className="w-64 h-80 m-4 p-4 bg-gray-100 hover:bg-gray-200 rounded-lg flex flex-col justify-between shadow-md transition-transform hover:scale-105"
+      className="w-64 h-auto m-4 p-4 bg-gray-100 hover:bg-gray-200 rounded-lg flex flex-col justify-between shadow-md transition-transform hover:scale-105"
     >
       <img
         className="w-full h-32 object-cover rounded-md mb-2 aspect-video"
@@ -33,14 +35,26 @@ const RestaurantCard = (props) => {
       <div className="flex flex-col justify-between flex-1">
         <h3 className="font-bold text-md truncate">{name}</h3>
         <p className="text-sm text-gray-700 line-clamp-2">
-          {cuisines.length > 0 ? cuisines.join(", ") : "Various Cuisines"}
+          {cuisines.length ? cuisines.join(", ") : "Various Cuisines"}
         </p>
         <div className="mt-2 text-sm">
-          <p>
-            ⭐ {avgRating}
-          </p>
+          <p>⭐ {avgRating}</p>
           <p>Delivered within {sla?.deliveryTime || 30} mins</p>
-          
+
+          {/* ✅ Display areaName and locality inline if available */}
+          {(areaName || locality) && (
+            <p
+              style={{
+                marginTop: "4px",
+                fontSize: "13px",
+                color: "#555",
+                fontStyle: "italic",
+              }}
+            >
+              📍 {areaName ? areaName : locality}
+              {areaName && locality && ` • ${locality}`}
+            </p>
+          )}
         </div>
       </div>
     </div>
