@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
+import MyOrders from "./components/MyOrders";
 import Body from "./components/Body";
 import Contact from "./components/Contact";
 import Checkout from "./components/Checkout";
@@ -75,6 +76,7 @@ const appRouter = createBrowserRouter([
       { path: "/home/contact", element: <Contact /> },
       { path: "/home/restaurants/:resId", element: <RestaurantMenu /> },
       { path: "/home/cart", element: <Cart /> },
+      { path: "/home/my-orders", element: <MyOrders />},
       { path: "/home/checkout", element: <Checkout />},
       { path: "/home/order", element: <Order /> }, // 👈 Make sure this is also /home/order
 
