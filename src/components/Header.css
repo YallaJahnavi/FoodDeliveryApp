@@ -18,3 +18,31 @@
     opacity: 1;
   }
 }
+
+.nav-links a {
+  margin: 0 12px;
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links a.active {
+  font-weight: bold;
+  color: #e67e22;
+}
+
+/* Smooth fade-in and slide-up animation for subtitle */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-subtitle {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
