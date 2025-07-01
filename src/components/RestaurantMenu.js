@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { addItemsToCart } from "../utils/cartSlice";
 import UserContext from "../utils/UserContext"; // ✅ imported
+import "./RestaurantMenu.css";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -108,7 +109,7 @@ const RestaurantMenu = () => {
             <>
               <h1 className="text-2xl font-bold mb-2">{restaurantInfo.name}</h1>
               <p className="text-gray-600 mb-1">{restaurantInfo.cuisines?.join(", ")}</p>
-              <p className="text-gray-500 mb-4">{restaurantInfo.costForTwoMessage}</p>
+              <p class="food-time-text">🍕💥 # FOOD TIME ACTIVATED 🌮🔥</p>
             </>
           )}
 
