@@ -8,32 +8,29 @@ const AboutUs = () => {
   const { isLoggedIn } = useContext(UserContext); // ✅ Access login state
 
   const handleBack = () => {
-    navigate("/home");
+    navigate("/home"); // Or navigate("/home") if you prefer
   };
 
   const goToContact = () => {
     navigate("/home/contact");
   };
 
-  // ✅ If not logged in, show logout message
+  // ✅ If not logged in, show only logout message (no back button)
   if (!isLoggedIn) {
-    return (
-      <div className="about-container">
-        <button onClick={handleBack} className="back-button">
-          ⬅️ Back
-        </button>
-        <h2 style={{ color: "red", marginTop: "40px" }}>
-          User Logged Out Successfully
-        </h2>
-      </div>
-    );
-  }
+  return (
+    <div className="about-container">
+      <div className="logout-message">User Logged Out Successfully</div>
+    </div>
+  );
+}
+
 
   // ✅ Show About content only if logged in
   return (
     <div className="about-container">
+      {/* 🔙 Back Button */}
       <button onClick={handleBack} className="back-button">
-        ⬅️ Back
+        ⬅️ Back to Home
       </button>
 
       <h1>About Our Food Delivery App</h1>
