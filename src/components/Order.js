@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { clearCart } from "../utils/cartSlice"; // ✅ Adjust path as needed
+import { clearCart } from "../utils/cartSlice";
+import { addOrder } from "../utils/ordersSlice"; // ✅ NEW
 
 const Order = () => {
   const location = useLocation();
@@ -15,10 +16,21 @@ const Order = () => {
     return total + price * (item.quantity || 1);
   }, 0);
 
-  // ✅ When user clicks "Back to Home", clear cart and navigate
+  // ✅ Store order to Redux only once on mount
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      dispatch(addOrder({
+        id: Date.now(),
+        date: new Date().toLocaleString(),
+        items: cartItems,
+        total: grandTotal.toFixed(2),
+      }));
+    }
+  }, [cartItems, dispatch, grandTotal]);
+
   const handleBackToHome = () => {
-    dispatch(clearCart());          // Clear the cart
-    navigate("/home");             // Redirect to home
+    dispatch(clearCart());
+    navigate("/home");
   };
 
   return (
