@@ -1,26 +1,4 @@
-.about-container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #fffbe6;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
-}
-.about-container h1 {
-  color: #e67e22;
-}
-.about-container ul {
-  padding-left: 20px;
-}
-.about-container ul li {
-  margin-bottom: 8px;
-}
-.about-container a {
-  color: #3498db;
-  text-decoration: none;
-}
+
 
 .back-button {
   margin-bottom: 20px;
