@@ -34,50 +34,56 @@ const AboutUs = () => {
 
   // ✅ Show About content only if logged in
   return (
-    <div className="about-container">
-      {/* 🔙 Back Button */}
-      <button onClick={handleBack} className="back-button">
-        ⬅️ Back to Home
-      </button>
+    <div className="about-container min-h-screen flex justify-center items-start py-10 bg-white">
+  <div className="w-full max-w-3xl px-6">
+    {/* 🔙 Back Button */}
+    <button onClick={handleBack} className="mb-6 px-4 py-2 bg-yellow-200 text-black rounded hover:bg-yellow-300">
+      ⬅️ Back to Home
+    </button>
 
-      <h1>About Our Food Delivery App</h1>
-      <p>
-        This Swiggy-inspired food delivery app is built with React.js. It features dynamic restaurant listings, cart management, user authentication, and more.
-      </p>
+    <h1 className="text-3xl font-bold mb-6 text-center">About Us</h1>
 
-      <h2>Features:</h2>
-      <ul>
-        <li>🔍 Browse restaurants fetched via Swiggy API</li>
-        <li>📱 User login and registration</li>
-        <li>🛒 Cart functionality using Redux</li>
-        <li>📦 Lazy loading for performance</li>
-      </ul>
+    <p className="text-lg mb-4">
+      This Swiggy-inspired food delivery app is built with React.js. It features dynamic restaurant listings,
+      cart management, user authentication, and more.
+    </p>
 
-      <h2>Tech Stack:</h2>
-      <ul>
-        <li>React</li>
-        <li>Redux Toolkit</li>
-        <li>React Router</li>
-        <li>Custom Hooks & Context API</li>
-      </ul>
+    <h2 className="text-2xl font-semibold mb-2">Features:</h2>
+    <ul className="list-disc list-inside mb-4">
+      <li>🔍 Browse restaurants fetched via Swiggy API</li>
+      <li>📱 User login and registration</li>
+      <li>🛒 Cart functionality using Redux</li>
+      <li>📦 Lazy loading for performance</li>
+    </ul>
 
-      <h2>Developer Info:</h2>
-      <p>👩‍💻 Jahnavi Yalla</p>
-      <p>
-        🔗{" "}
-        <a
-          href="https://github.com/YallaJahnavi/FoodDeliveryApp"
-          target="_blank"
-          rel="noreferrer"
-        >
-          GitHub Repo
-        </a>
-      </p>
+    <h2 className="text-2xl font-semibold mb-2">Tech Stack:</h2>
+    <ul className="list-disc list-inside mb-4">
+      <li>React</li>
+      <li>Redux Toolkit</li>
+      <li>React Router</li>
+      <li>Custom Hooks & Context API</li>
+    </ul>
 
-      <button onClick={goToContact} className="contact-button">
-        📞 Contact Us
-      </button>
-    </div>
+    <h2 className="text-2xl font-semibold mb-2">Developer Info:</h2>
+    <p className="mb-1">👩‍💻 Jahnavi Yalla</p>
+    <p className="mb-6">
+      🔗{" "}
+      <a
+        href="https://github.com/YallaJahnavi/FoodDeliveryApp"
+        target="_blank"
+        rel="noreferrer"
+        className="text-blue-600 underline hover:text-blue-800"
+      >
+        GitHub Repo
+      </a>
+    </p>
+
+    <button onClick={goToContact} className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+      📞 Contact Us
+    </button>
+  </div>
+</div>
+
   );
 };
 
