@@ -5,3 +5,29 @@
   font-weight: bold;
   text-shadow: 2px 2px 4px #ff80ab;
 }
+.food-time-text {
+  font-style: italic;
+  font-size: 28px;
+  color: #e91e63;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px #ff80ab;
+}
+
+/* RestaurantMenu.css */
+
+.restaurant-menu-wrapper {
+  background-image: url("https://images.unsplash.com/photo-1541544741938-0af808871cc0");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 20px;
+}
+
+.restaurant-menu-content {
+  background-color: rgba(255, 255, 255, 0.9); /* light transparent bg for readability */
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 800px;
+  margin: auto;
+}
