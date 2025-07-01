@@ -89,94 +89,96 @@ const RestaurantMenu = () => {
   )?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      {/* ✅ Back Button Always Visible */}
-      <button
-        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        onClick={() => navigate("/home")}
-      >
-        ← Back to Restaurants
-      </button>
+    <div className="restaurant-menu-wrapper">
+      <div className="restaurant-menu-content">
+        {/* ✅ Back Button Always Visible */}
+        <button
+          className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          onClick={() => navigate("/home")}
+        >
+          ← Back to Restaurants
+        </button>
 
-      {/* ✅ Logged Out View */}
-      {!isLoggedIn ? (
-        <p className="text-center text-red-600 font-semibold text-xl mt-20">
-          User Logged Out Successfully
-        </p>
-      ) : (
-        <>
-          {restaurantInfo && (
-            <>
-              <h1 className="text-2xl font-bold mb-2">{restaurantInfo.name}</h1>
-              <p className="text-gray-600 mb-1">{restaurantInfo.cuisines?.join(", ")}</p>
-              <p class="food-time-text">🍕💥 # FOOD TIME ACTIVATED 🌮🔥</p>
-            </>
-          )}
+        {/* ✅ Logged Out View */}
+        {!isLoggedIn ? (
+          <p className="text-center text-red-600 font-semibold text-xl mt-20">
+            User Logged Out Successfully
+          </p>
+        ) : (
+          <>
+            {restaurantInfo && (
+              <>
+                <h1 className="text-2xl font-bold mb-2">{restaurantInfo.name}</h1>
+                <p className="text-gray-600 mb-1">{restaurantInfo.cuisines?.join(", ")}</p>
+                <p className="food-time-text">🍕💥 # FOOD TIME ACTIVATED 🌮🔥</p>
+              </>
+            )}
 
-          <h2 className="text-xl font-semibold mb-3">Menu</h2>
-          <ul className="space-y-2">
-            {menuCards?.map((menuItem, index) => {
-              const item = menuItem.card?.card?.itemCards?.[0]?.card?.info;
-              if (!item) return null;
-              return (
-                <li key={index} className="flex items-center gap-3 border-b pb-2">
-                  <input
-                    type="checkbox"
-                    checked={!!selectedItems[item.id]}
-                    onChange={() => handleCheckboxChange(item.id, item)}
-                  />
-                  <label className="flex-1">
-                    {item.name} - ₹{(item.price || item.defaultPrice) / 100}
-                  </label>
+            <h2 className="text-xl font-semibold mb-3">Menu</h2>
+            <ul className="space-y-2">
+              {menuCards?.map((menuItem, index) => {
+                const item = menuItem.card?.card?.itemCards?.[0]?.card?.info;
+                if (!item) return null;
+                return (
+                  <li key={index} className="flex items-center gap-3 border-b pb-2">
+                    <input
+                      type="checkbox"
+                      checked={!!selectedItems[item.id]}
+                      onChange={() => handleCheckboxChange(item.id, item)}
+                    />
+                    <label className="flex-1">
+                      {item.name} - ₹{(item.price || item.defaultPrice) / 100}
+                    </label>
 
-                  {selectedItems[item.id] && (
-                    <select
-                      className="ml-2 px-2 py-1 border rounded"
-                      value={selectedItems[item.id].quantity}
-                      onChange={(e) => handleQuantityChange(item.id, e.target.value)}
-                    >
-                      {[...Array(10)].map((_, i) => (
-                        <option key={i + 1} value={i + 1}>
-                          {i + 1}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-
-          {Object.keys(selectedItems).length > 0 && (
-            <div className="mt-6 bg-gray-100 p-4 rounded shadow">
-              <h3 className="text-lg font-semibold mb-2">Selected Items:</h3>
-              <ul className="list-disc ml-5 mb-4">
-                {Object.values(selectedItems).map((item) => (
-                  <li key={item.id}>
-                    {item.name} x {item.quantity} = ₹
-                    {((item.price || item.defaultPrice) / 100) * item.quantity}
+                    {selectedItems[item.id] && (
+                      <select
+                        className="ml-2 px-2 py-1 border rounded"
+                        value={selectedItems[item.id].quantity}
+                        onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                      >
+                        {[...Array(10)].map((_, i) => (
+                          <option key={i + 1} value={i + 1}>
+                            {i + 1}
+                          </option>
+                        ))}
+                      </select>
+                    )}
                   </li>
-                ))}
-              </ul>
+                );
+              })}
+            </ul>
 
-              <div className="flex gap-4">
-                <button
-                  onClick={handleAddToCart}
-                  className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-                >
-                  Add to Cart
-                </button>
-                <button
-                  onClick={handleBuyNow}
-                  className="px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700"
-                >
-                  Buy Now
-                </button>
+            {Object.keys(selectedItems).length > 0 && (
+              <div className="mt-6 bg-gray-100 p-4 rounded shadow">
+                <h3 className="text-lg font-semibold mb-2">Selected Items:</h3>
+                <ul className="list-disc ml-5 mb-4">
+                  {Object.values(selectedItems).map((item) => (
+                    <li key={item.id}>
+                      {item.name} x {item.quantity} = ₹
+                      {((item.price || item.defaultPrice) / 100) * item.quantity}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex gap-4">
+                  <button
+                    onClick={handleAddToCart}
+                    className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                  >
+                    Add to Cart
+                  </button>
+                  <button
+                    onClick={handleBuyNow}
+                    className="px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700"
+                  >
+                    Buy Now
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-        </>
-      )}
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };
