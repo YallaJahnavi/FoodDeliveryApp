@@ -1,3 +1,4 @@
+// src/utils/ordersSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const ordersSlice = createSlice({
@@ -12,8 +13,13 @@ const ordersSlice = createSlice({
     clearOrders: (state) => {
       state.orderHistory = [];
     },
+    cancelOrder: (state, action) => {
+      const orderId = action.payload;
+      state.orderHistory = state.orderHistory.filter(order => order.id !== orderId);
+    },
   },
 });
 
-export const { addOrder, clearOrders } = ordersSlice.actions;
+// ✅ Make sure `cancelOrder` is exported
+export const { addOrder, clearOrders, cancelOrder } = ordersSlice.actions;
 export default ordersSlice.reducer;
