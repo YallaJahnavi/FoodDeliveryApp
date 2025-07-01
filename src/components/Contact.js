@@ -22,7 +22,7 @@ const Contact = () => {
 
     try {
       const res = await fetch("https://formspree.io/f/mgvyrgkz", {
-        // 🔁 Replace with your actual Formspree endpoint
+        // 🔁 Replace with your actual Formspree or backend endpoint
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,20 +41,22 @@ const Contact = () => {
     }
   };
 
-  // 🔴 If user is logged out — show only message (no back button)
+  // 🔴 If user is logged out — show logout message (styled like About Us page)
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white p-6">
-        <h2 className="text-2xl font-semibold text-red-500 mt-20">
-          User Logged Out Successfully
-        </h2>
+      <div className="min-h-screen flex justify-center items-center bg-white p-4">
+        <div className="bg-yellow-50 p-10 rounded-lg shadow-md">
+          <h2 className="text-2xl text-red-600 text-center">
+            User Logged Out Successfully
+          </h2>
+        </div>
       </div>
     );
   }
 
+  // ✅ If user is logged in — show form and back button
   return (
     <div className="min-h-screen bg-white p-6 relative">
-      {/* ✅ Back button visible only when logged in */}
       <button
         onClick={() => navigate("/home")}
         className="absolute top-4 left-4 bg-yellow-100 px-3 py-1 rounded hover:bg-yellow-200"
