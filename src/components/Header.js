@@ -8,7 +8,6 @@ const Header = () => {
   const navigate = useNavigate();
   const { loggedInUser, setUserName, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
 
-  // ✅ FIXED: Get cartItems from store.cart.items
   const cartItems = useSelector((store) => store.cart.items);
 
   const handleLoginLogout = () => {
@@ -57,6 +56,15 @@ const Header = () => {
               className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
             >
               Contact Us
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/home/my-orders"
+              className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
+            >
+              My Orders
             </NavLink>
           </li>
 
