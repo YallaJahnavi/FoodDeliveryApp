@@ -1,6 +1,6 @@
 /* Checkout.css */
 .checkout-wrapper {
-  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfL5SMxfYXhNXBx11O68CI0oW9RpIz7ay_7g&s");
+  background-image: url("https://img.freepik.com/premium-photo/fast-food-delivery-menu-background_136595-30100.jpg");
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -14,4 +14,12 @@
   padding: 30px;
   max-width: 700px;
   margin: auto;
+}
+
+.food-time-text {
+  font-style: italic;
+  font-size: 20px;
+  color: #e91e63;
+  text-align: center;
+  text-shadow: 2px 2px 4px #ff80ab;
 }
