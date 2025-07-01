@@ -1,7 +1,7 @@
 import RestaurantCard, { withPromtedLabel } from "./RestaurantCard";
 import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // ✅ Added useNavigate
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
 
@@ -13,6 +13,7 @@ const Body = () => {
   const RestaurantCardPromoted = withPromtedLabel(RestaurantCard);
   const { loggedInUser, setUserName, isLoggedIn } = useContext(UserContext);
   const onlineStatus = useOnlineStatus();
+  const navigate = useNavigate(); // ✅ Required for button navigation
 
   useEffect(() => {
     fetchData();
@@ -47,8 +48,16 @@ const Body = () => {
 
   if (!isLoggedIn) {
     return (
-      <div className="text-center mt-20 text-2xl font-semibold text-red-600">
-        User Logged Out Successfully !!!
+      <div className="text-center mt-20">
+        <h2 className="text-2xl font-semibold text-red-600">
+          User Logged Out Successfully !!!
+        </h2>
+        <button
+          onClick={() => navigate("/login")}
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Login Again
+        </button>
       </div>
     );
   }
@@ -117,3 +126,4 @@ const Body = () => {
 };
 
 export default Body;
+
