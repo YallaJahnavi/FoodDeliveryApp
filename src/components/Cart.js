@@ -27,8 +27,16 @@ const Cart = () => {
 
   if (!isLoggedIn) {
     return (
-      <div className="text-center text-red-600 text-xl mt-20">
-        User Logged Out Successfully
+      <div className="text-center mt-20">
+        <h2 className="text-red-600 text-xl font-semibold">
+          User Logged Out Successfully
+        </h2>
+        <button
+          onClick={() => navigate("/login")}
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Login Again
+        </button>
       </div>
     );
   }
