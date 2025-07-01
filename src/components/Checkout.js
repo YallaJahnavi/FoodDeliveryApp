@@ -1,5 +1,6 @@
 // Checkout.js
 import { useLocation, useNavigate } from "react-router-dom";
+import "./Checkout.css";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -21,65 +22,69 @@ const Checkout = () => {
       state: {
         cartItems,
         restaurantName,
-        isBuyNow
-      }
+        isBuyNow,
+      },
     });
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <button
-        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        onClick={() => navigate("/home/cart")}
-      >
-        ← Back to Cart
-      </button>
+    <div className="checkout-wrapper">
+      <div className="checkout-content">
+        <button
+          className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          onClick={() => navigate("/home/cart")}
+        >
+          ← Back to Cart
+        </button>
 
-      <h1 className="text-2xl font-bold mb-6 text-center">🧾 Checkout</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">🧾 Checkout</h1>
 
-      <h2 className="text-center text-lg mb-4 text-gray-700">
-        Restaurant: {restaurantName}
-      </h2>
+        <h2 className="text-center text-lg mb-4 text-gray-700">
+          Restaurant: {restaurantName}
+        </h2>
 
-      {cartItems.length === 0 ? (
-        <p className="text-center text-gray-500">Your cart is empty.</p>
-      ) : (
-        <>
-          <ul className="space-y-4 mb-6">
-            {cartItems.map((item, index) => {
-              const quantity = item.quantity || 1;
-              const price = (item.price || item.defaultPrice || 0) / 100;
-              const itemTotal = price * quantity;
+        {cartItems.length === 0 ? (
+          <p className="text-center text-gray-500">Your cart is empty.</p>
+        ) : (
+          <>
+            <ul className="space-y-4 mb-6">
+              {cartItems.map((item, index) => {
+                const quantity = item.quantity || 1;
+                const price = (item.price || item.defaultPrice || 0) / 100;
+                const itemTotal = price * quantity;
 
-              return (
-                <li
-                  key={index}
-                  className="flex justify-between items-center border-b pb-2"
-                >
-                  <div>
-                    <p className="font-medium text-gray-800">{item.name}</p>
-                    <p className="text-sm text-gray-500">Qty: {quantity}</p>
-                  </div>
-                  <p className="text-green-700 font-semibold">₹{itemTotal.toFixed(2)}</p>
-                </li>
-              );
-            })}
-          </ul>
+                return (
+                  <li
+                    key={index}
+                    className="flex justify-between items-center border-b pb-2"
+                  >
+                    <div>
+                      <p className="font-medium text-gray-800">{item.name}</p>
+                      <p className="text-sm text-gray-500">Qty: {quantity}</p>
+                    </div>
+                    <p className="text-green-700 font-semibold">
+                      ₹{itemTotal.toFixed(2)}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
 
-          <div className="text-right text-lg font-semibold mb-6 text-green-800">
-            Total: ₹{totalAmount.toFixed(2)}
-          </div>
+            <div className="text-right text-lg font-semibold mb-6 text-green-800">
+              Total: ₹{totalAmount.toFixed(2)}
+            </div>
 
-          <div className="text-center">
-            <button
-              onClick={handlePlaceOrder}
-              className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-            >
-              Place Order
-            </button>
-          </div>
-        </>
-      )}
+            <div className="text-center">
+              <button
+                onClick={handlePlaceOrder}
+                className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+              >
+                Place Order
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
