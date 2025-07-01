@@ -1,0 +1,18 @@
+/* MyOrders.css */
+.myorders-wrapper {
+  background-image: url("https://static.vecteezy.com/system/resources/previews/030/637/464/non_2x/dark-fast-food-8k-free-photo.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  width: 100%;
+}
+
+.myorders-content {
+  background-color: rgba(255, 255, 255, 0.92);
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 900px;
+  margin: auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
