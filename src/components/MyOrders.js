@@ -17,13 +17,19 @@ const MyOrders = () => {
               className="border border-gray-300 p-4 rounded-lg shadow-md"
             >
               <p className="text-sm text-gray-500">Ordered on: {order.date}</p>
-              <ul className="list-disc list-inside mt-2">
+
+              <ul className="list-disc list-inside mt-2 mb-2">
                 {order.items.map((item, idx) => (
                   <li key={idx}>
-                    {item.name} — ₹{item.price / 100} × {item.quantity || 1}
+                    {item.name} — ₹{(item.price || item.defaultPrice || 0) / 100} ×{" "}
+                    {item.quantity || 1}
                   </li>
                 ))}
               </ul>
+
+              <p className="text-right font-semibold text-green-700">
+                Total: ₹{order.total}
+              </p>
             </div>
           ))}
         </div>
