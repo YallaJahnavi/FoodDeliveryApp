@@ -11,12 +11,14 @@ const MyOrders = () => {
     navigate("/home");
   };
 
-  const handleCancel = (orderId) => { // added
-    const confirmCancel = window.confirm("Are you sure you want to cancel this order?");
-    if (confirmCancel) {
-      dispatch(cancelOrder(orderId));
-    }
-  };
+  const handleCancel = (orderId) => {
+  const confirmCancel = window.confirm("Are you sure you want to cancel this order?");
+  if (confirmCancel) {
+    dispatch(cancelOrder(orderId));
+    alert("Order Cancelled Successfully");
+  }
+};
+
 
   return (
     <div className="p-6">
