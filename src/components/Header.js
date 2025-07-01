@@ -33,6 +33,9 @@ const Header = () => {
           alt="Swiggy Logo"
         />
         <div>
+          <p className="text-xl font-bold uppercase tracking-widest text-gray-500 font-semibold">
+            WELCOME TO
+          </p>
           <h1 className="text-2xl font-extrabold tracking-wide text-green-700 drop-shadow-sm">
             TASTY MEALS FEAST
           </h1>
