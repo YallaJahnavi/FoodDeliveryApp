@@ -69,7 +69,7 @@ const Body = () => {
       className="min-h-screen bg-cover bg-center px-4 py-6"
       style={{
         backgroundImage:
-          "url('https://t3.ftcdn.net/jpg/02/02/07/56/360_F_202075610_MGQKkqilBtXnLwMtWlSDvFrrW2kbYYgl.jpg')",
+          "url('https://static.vecteezy.com/system/resources/previews/030/637/464/non_2x/dark-fast-food-8k-free-photo.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
