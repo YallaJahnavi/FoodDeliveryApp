@@ -37,13 +37,9 @@ const RestaurantCard = (props) => {
         </p>
         <div className="mt-2 text-sm">
           <p>
-            ⭐ {avgRating} • ₹
-            {isNaN(costForTwo / 100)
-              ? "200"
-              : (costForTwo / 100).toFixed(0)}{" "}
-            FOR TWO
+            ⭐ {avgRating}
           </p>
-          <p>{sla?.deliveryTime || 30} mins</p>
+          <p>Delivered within {sla?.deliveryTime || 30} mins</p>
           
         </div>
       </div>
