@@ -39,6 +39,7 @@ const Checkout = () => {
 
         <h1 className="text-2xl font-bold mb-6 text-center">🧾 Checkout</h1>
 
+
         <h2 className="text-center text-lg mb-4 text-gray-700">
           Restaurant: {restaurantName}
         </h2>
@@ -73,6 +74,11 @@ const Checkout = () => {
             <div className="text-right text-lg font-semibold mb-6 text-green-800">
               Total: ₹{totalAmount.toFixed(2)}
             </div>
+              
+              <p className="food-time-text"> # What's cooking in that brain 🧠, PLACE ORDER</p>
+
+            <br>
+            </br>
 
             <div className="text-center">
               <button
