@@ -15,14 +15,26 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-green-100 to-blue-100 relative p-4">
-      {/* Back to Home Button */}
-      <button
-        onClick={() => navigate("/home")}
-        className="absolute top-4 left-4 bg-gray-200 px-4 py-2 rounded shadow hover:bg-gray-300 text-sm"
-      >
-        ← Back to Home
-      </button>
+      {/* Top Buttons */}
+      <div className="absolute top-4 left-4">
+        <button
+          onClick={() => navigate("/home")}
+          className="bg-gray-200 px-4 py-2 rounded shadow hover:bg-gray-300 text-sm"
+        >
+          ← Back to Home
+        </button>
+      </div>
 
+      <div className="absolute top-4 right-4">
+        <button
+          onClick={() => navigate("/home/edit-profile")}
+          className="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 text-sm"
+        >
+          ✏️ Edit Profile
+        </button>
+      </div>
+
+      {/* Profile Card */}
       <div className="flex items-center justify-center mt-10">
         <div className="bg-white p-10 rounded shadow-lg text-center max-w-lg w-full">
           <h1 className="text-3xl font-bold text-green-700 mb-4">👤 User Profile</h1>
