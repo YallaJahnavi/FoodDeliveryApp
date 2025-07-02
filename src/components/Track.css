@@ -1,0 +1,38 @@
+/* Track.css */
+.track-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(to right, #f9fafb, #e3f2fd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.track-content {
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.delivery-animation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.animated-scooter {
+  width: 300px;
+  animation: moveScooter 5s linear infinite;
+}
+
+@keyframes moveScooter {
+  0% {
+    transform: translateX(-50%);
+  }
+  50% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
