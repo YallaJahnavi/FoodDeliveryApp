@@ -1,4 +1,5 @@
-import { useContext } from "react";
+// Header.js
+import { useContext, useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserContext from "../utils/UserContext";
@@ -9,19 +10,36 @@ const Header = () => {
   const { loggedInUser, setUserName, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
   const cartItems = useSelector((store) => store.cart.items);
 
-  const handleLoginLogout = () => {
-    if (isLoggedIn) {
-      setUserName("");
-      setIsLoggedIn(false);
-    } else {
-      setIsLoggedIn(true);
-      setUserName("Jahnavi");
-      navigate("/login");
-    }
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef();
+
+  const handleLogout = () => {
+    setUserName("");
+    setIsLoggedIn(false);
+    setShowDropdown(false);
+  };
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    setUserName("Jahnavi");
+    navigate("/login");
   };
 
   const activeClass = "text-green-600 font-bold border-b-2 border-green-600";
   const inactiveClass = "hover:text-green-500";
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="flex justify-between items-center px-6 py-4 bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
@@ -40,16 +58,15 @@ const Header = () => {
             TASTY MEALS FEAST
           </h1>
           <p className="animated-subtitle text-xl italic text-gray-600 mt-1">
-            📌Eater's Hunger.....😋
+            📌Eater's Hunger.....🍴🤤
           </p>
         </div>
       </div>
 
-      {/* Right: Navigation + Status + Login/Logout */}
-      <ul className="flex p-4 m-4 items-center gap-6 text-lg">
+      {/* Right: Navigation + Dropdown */}
+      <ul className="flex p-4 m-4 items-center gap-6 text-lg relative">
         <li>
-          Online Status:{" "}
-          <span className="text-xl">{isLoggedIn ? "✅" : "🔴"}</span>
+          Online Status: <span className="text-xl">{isLoggedIn ? "✅" : "🔴"}</span>
         </li>
 
         <li>
@@ -88,19 +105,51 @@ const Header = () => {
           </NavLink>
         </li>
 
-        <li>
+        {/* 👤 Dropdown with ▼ and Logout inside */}
+        <li className="relative" ref={dropdownRef}>
           <button
-            className={`px-4 py-1 rounded ${
-              isLoggedIn
-                ? "bg-green-200 hover:bg-green-300 cursor-pointer"
-                : "bg-gray-300 text-gray-500 cursor-not-allowed"
-            }`}
-            onClick={handleLoginLogout}
-            disabled={!isLoggedIn}
-            title={!isLoggedIn ? "Login Again to enable" : ""}
+            onClick={() => setShowDropdown((prev) => !prev)}
+            className="text-2xl flex items-center gap-1 hover:opacity-80 focus:outline-none"
+            title="Account"
           >
-            {isLoggedIn ? "Logout" : "Logged Out"}
+            <span>👤</span>
+            <span className="text-sm">▼</span>
           </button>
+
+          {showDropdown && (
+            <div className="absolute right-0 mt-2 w-44 bg-white rounded shadow-md border z-50 text-base">
+              <NavLink
+                to="/home/profile"
+                className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
+                onClick={() => setShowDropdown(false)}
+              >
+                Profile
+              </NavLink>
+              <NavLink
+                to="/home/settings"
+                className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
+                onClick={() => setShowDropdown(false)}
+              >
+                Settings
+              </NavLink>
+              <hr className="my-1 border-gray-200" />
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 hover:bg-red-100 text-red-600"
+                >
+                  Logout
+                </button>
+              ) : (
+                <button
+                  onClick={handleLogin}
+                  className="block w-full text-left px-4 py-2 hover:bg-green-100 text-green-600"
+                >
+                  Login
+                </button>
+              )}
+            </div>
+          )}
         </li>
       </ul>
     </div>
