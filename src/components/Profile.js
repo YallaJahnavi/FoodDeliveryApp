@@ -14,7 +14,13 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-green-100 to-blue-100 relative p-4">
+    <div
+      className="min-h-screen relative bg-cover bg-center bg-no-repeat p-4"
+      style={{
+        backgroundImage:
+          "url('https://static.vecteezy.com/system/resources/previews/030/637/464/non_2x/dark-fast-food-8k-free-photo.jpg')",
+      }}
+    >
       {/* Top Buttons */}
       <div className="absolute top-4 left-4">
         <button
