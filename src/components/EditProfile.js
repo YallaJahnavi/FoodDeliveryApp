@@ -36,7 +36,13 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-50 p-4">
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat p-4"
+      style={{
+        backgroundImage:
+          "url('https://static.vecteezy.com/system/resources/previews/030/637/464/non_2x/dark-fast-food-8k-free-photo.jpg')",
+      }}
+    >
       <form
         onSubmit={handleUpdate}
         className="bg-white p-8 rounded shadow-md max-w-md w-full space-y-4"
@@ -60,7 +66,6 @@ const EditProfile = () => {
           onChange={(e) => setForm({ ...form, email: e.target.value })}
           className="w-full p-3 border rounded"
           required
-          //readOnly // email is usually used as a unique ID
         />
         <input
           type="date"
