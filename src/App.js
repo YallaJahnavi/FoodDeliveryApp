@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Profile from "./components/Profile";
+import EditProfile from "./components/EditProfile";
 import Header from "./components/Header";
 import MyOrders from "./components/MyOrders";
 import Body from "./components/Body";
@@ -14,6 +15,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
+
 
 // Lazy imports
 //const Grocery = lazy(() => import("./components/Grocery"));
@@ -83,6 +85,7 @@ const appRouter = createBrowserRouter([
       { path: "/home/checkout", element: <Checkout />},
       { path: "/home/order", element: <Order /> }, // 👈 Make sure this is also /home/order
       { path: "/home/profile", element: <Profile />},
+      { path: "/home/edit-profile", element: <EditProfile /> },
       {
       path: "order",
       element: <Order />, // This is your Order.js component
