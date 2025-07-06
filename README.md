@@ -86,8 +86,65 @@ where        : In Track.js, lottie is imported and used like this
                <lottie animationData = {deliveryAnimation} loop={true}/>"
 what happens : When a user clicks on "Track Order" in "MyOrders.js" and "Order.js" it is redirected to "Track.js". They see a delivery animation like a person                     riding a scooter, making the experience fun and interactive.
       
+PROCESS OF GETTING ANIMATED JSON INTO OUR PROJECT:
+1. Visit lottiefiles.com
+2. Signup with your google account.
+3. Wait until the dashboard is rendered automatically, if not click on "Go to dashboard" in the top nav bar.
+4. Open another browser page and visit the same "lottiefiles.com".
+5. A page with your logged in account will be opened along with search bar.
+6. Search for "delivery-man". choose an animation , open it and click on download option at the top, you will be shown some file structure just click on "save".
+7. In the right nav bar choose "lottie JSON" click on download, an animated file with ".json" extension is downloaded.
+8. Go to file explorer, in downloads change the name of your choice. I named as "delivery".
+9. Now in visual studio code create a folder named "assets".
+10. In file explorer copy the "delivery" file from downloads and paste it in the assets folder.
+11. It will be directly displayed in visual studio code.
+12. Hence when the user clicks on "Track Order" button in "MyOrders.js" and from "Order.js" the selected json animation from lottiefiles.com is displayed here.
 
+# React hooks:
+1. useState:
+It is used to store and mange local state inside components.
+It is used in:
+Register.js       : to store the user input data.
+EditProfile.js    : to store and update profile from fields.
+Profile.js        : to hold the logged in user's data.
+MyOrders.js       : (if customized, may be used for UI state like status).
+Track.js          : (if you fetch or animated based on state).
 
+2. useEffect:
+It is used to perform side effects like fetching data, reading from the local storage or running code on mount.
+It is used in:
+EditProfile.js    : to prefill the form using local storage data when the component mounts
+Profile.js        : to fetch the currently logged in user on load.
+
+3. useNavigate: (from react-router-dom)
+It is used to navigate programmatically between routes.
+It is used in:
+Register.js       : after successful registration.
+Login.js          : after successful login.
+EditProfile.js, Track.js etc : to redirect the user to different pages.
+
+4. useParams: (from react-router-dom)
+It is used to extract dynamic values (e.g. resId, orderId) from the URL.
+It is used in:
+RestaurantMenu.js    : to get the restaurant ID from the URL.
+Track.js             : to get the order ID from the /track/:orderId route.
+
+5. useContext:
+It is used to access data from a global context like logged-in user information.
+Used in Header.js, RestaurantCard.js, Profile.js etc.
+Accesses UserContext to show user related data.
+
+6. useSelector: (from react-redux)
+It is used to access redux store data inside components.
+It is used in:
+Header.js            : to show cart item count.
+Cart.js, MyOrders,js : to display cart or order details.
+
+7. useDispatch: (from react-redux)
+It is used to dispatch redux actions (e.g. add/remove items from the cart or orders)
+It is used in:
+MyOrders.js          : to cancel an order.
+Cart.js              : to remove items from the cart.
 
 
 
