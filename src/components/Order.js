@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../utils/cartSlice";
-import { addOrder } from "../utils/ordersSlice"; // ✅ NEW
-import "./Order.css"; // ✅ NEW
+import { addOrder } from "../utils/ordersSlice"; //  NEW
+import "./Order.css"; //  NEW
 
 const Order = () => {
   const location = useLocation();
@@ -17,7 +17,7 @@ const Order = () => {
     return total + price * (item.quantity || 1);
   }, 0);
 
-  // ✅ Store order to Redux only once on mount
+  //  Store order to Redux only once on mount
   useEffect(() => {
     if (cartItems.length > 0) {
       dispatch(
@@ -88,7 +88,7 @@ const Order = () => {
 
             <p className="text-right mt-6"> Thank you for Ordering food !!! </p>
 
-            {/* ✅ Moved button here and aligned to bottom right */}
+            {/*  Moved button here and aligned to bottom right */}
             <div className="text-right mt-6">
               <button
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
