@@ -17,6 +17,13 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleRegister = () => {
+    // ✅ Check for empty fields
+    const isEmpty = Object.values(form).some((value) => value.trim() === "");
+    if (isEmpty) {
+      alert("Enter your details first");
+      return;
+    }
+
     // ✅ Phone number must be exactly 10 digits
     if (!/^\d{10}$/.test(form.phone)) {
       alert("Please enter a valid 10-digit phone number.");
