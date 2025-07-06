@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../utils/UserContext"; // ✅ For login state
-import "./Contact.css"; // ✅ For background image styling
+import UserContext from "../utils/UserContext"; // For login state
+import "./Contact.css"; // For background image styling
 
 const Contact = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(UserContext); // ✅ Track login status
+  const { isLoggedIn } = useContext(UserContext); // Track login status
 
   const [formData, setFormData] = useState({
     name: "",
@@ -22,7 +22,7 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://formspree.io/f/mgvyrgkz", {
+      const res = await fetch("https://formspree.io/f/mwpbjnqg", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const Contact = () => {
     }
   };
 
-  // 🔴 If user is logged out — show logout message and Login Again button
+  // If user is logged out — show logout message and Login Again button
   if (!isLoggedIn) {
     return (
       <div className="min-h-screen flex justify-center items-center bg-white p-4">
@@ -60,7 +60,7 @@ const Contact = () => {
     );
   }
 
-  // ✅ If user is logged in — show form and back button
+  // If user is logged in — show form and back button
   return (
     <div className="contact-wrapper">
       <div className="contact-content relative">
