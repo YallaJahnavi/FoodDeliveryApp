@@ -13,7 +13,7 @@ export const saveUser = (user) => {
   existingUsers.push(user);
   localStorage.setItem("users", JSON.stringify(existingUsers));
 
-  // ✅ Store current user separately for profile access
+  // Store current user separately for profile access
   localStorage.setItem("currentUser", JSON.stringify(user));
 
   return true;
@@ -25,7 +25,7 @@ export const validateUser = ({ username, password }) => {
   return users.find((u) => u.username === username && u.password === password);
 };
 
-// ✅ (Optional utility) Get current logged-in/registered user
+// (Optional utility) Get current logged-in/registered user
 export const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("currentUser"));
 };
