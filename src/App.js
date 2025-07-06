@@ -1,100 +1,103 @@
+// App.js
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import Profile from "./components/Profile";
-import EditProfile from "./components/EditProfile";
+
+// ⬇️ Core layout + common components
 import Header from "./components/Header";
-import MyOrders from "./components/MyOrders";
 import Body from "./components/Body";
 import Contact from "./components/Contact";
+import MyOrders from "./components/MyOrders";
 import Checkout from "./components/Checkout";
 import Order from "./components/Order";
-import Track from "./components/Track";
-import Error from "./components/Error";
+import Track from "./components/Track";          // Track order page
 import RestaurantMenu from "./components/RestaurantMenu";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import { Provider } from "react-redux";
-import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
+import Profile from "./components/Profile";
+import EditProfile from "./components/EditProfile";
+import Error from "./components/Error";
 
-
-// Lazy imports
-//const Grocery = lazy(() => import("./components/Grocery"));
+// ⬇️ Lazy‑loaded components
+// const Grocery = lazy(() => import("./components/Grocery"));   // (kept commented‑out as before)
 const About = lazy(() => import("./components/AboutUs"));
 
-// ✅ Auth pages
+// ⬇️ Auth pages
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
-// ✅ Context provider
+// ⬇️ State / context
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 import { UserContextProvider } from "./utils/UserContext";
 
-// ✅ App layout with Header
-const AppLayout = () => {
-  return (
-    <Provider store={appStore}>
-      <UserContextProvider>
-        <div className="app">
-          <Header />
-          <Outlet />
-        </div>
-      </UserContextProvider>
-    </Provider>
-  );
-};
+// -------------------------------------------------------------
+// Layouts
+// -------------------------------------------------------------
+const AppLayout = () => (
+  <Provider store={appStore}>
+    <UserContextProvider>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </UserContextProvider>
+  </Provider>
+);
 
-// ✅ App layout without Header (for landing/login/register)
-const MinimalLayout = () => {
-  return (
-    <div>
-      <Outlet />
-    </div>
-  );
-};
+const MinimalLayout = () => (
+  <div>
+    <Outlet />
+  </div>
+);
 
-// ✅ Router setup
+// -------------------------------------------------------------
+// Router
+// -------------------------------------------------------------
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+
 const appRouter = createBrowserRouter([
+  // 1️⃣ Public (no header) routes
   {
     path: "/",
-    element: <MinimalLayout />, // No header here
+    element: <MinimalLayout />,
     children: [
-      { path: "/", element: <Landing /> },
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Register /> },
+      { path: "/",        element: <Landing /> },
+      { path: "/login",   element: <Login /> },
+      { path: "/register",element: <Register /> }
     ],
     errorElement: <Error />,
   },
+
+  // 2️⃣ Authenticated (header) routes
   {
-    path: "/home", // Swiggy clone main routes
+    path: "/home",
     element: <AppLayout />,
     children: [
-      { path: "/home", element: <Body /> },
-      {
-        path: "/home/about",
-        element: (
-          <Suspense fallback={<h1>Loading....</h1>}>
-            <About />
-          </Suspense>
-        ),
-      },
-      { path: "/home/contact", element: <Contact /> },
-      { path: "/home/restaurants/:resId", element: <RestaurantMenu /> },
-      { path: "/home/cart", element: <Cart /> },
-      { path: "/home/my-orders", element: <MyOrders />},
-      { path: "/home/track", element: <Track />},
-      { path: "/home/checkout", element: <Checkout />},
-      { path: "/home/order", element: <Order /> }, // 👈 Make sure this is also /home/order
-      { path: "/home/profile", element: <Profile />},
-      { path: "/home/edit-profile", element: <EditProfile /> },
-      {
-      path: "order",
-      element: <Order />, // This is your Order.js component
-    },
+      { path: "/home",                      element: <Body /> },
+      { path: "/home/about",                element: <Suspense fallback={<h1>Loading...</h1>}><About /></Suspense> },
+      { path: "/home/contact",              element: <Contact /> },
+      { path: "/home/restaurants/:resId",   element: <RestaurantMenu /> },
+      { path: "/home/cart",                 element: <Cart /> },
+      { path: "/home/my-orders",            element: <MyOrders /> },
 
+      // ✅ Track order routes — static & dynamic
+      { path: "/home/track",                element: <Track /> },          // (kept for backward compatibility)
+      { path: "/home/track/:orderId",       element: <Track /> },          // (new dynamic route)
+
+      { path: "/home/checkout",             element: <Checkout /> },
+      { path: "/home/order",                element: <Order /> },
+
+      // (duplicate relative “order” route retained to avoid breaking any existing links)
+      { path: "order",                      element: <Order /> },
+
+      { path: "/home/profile",              element: <Profile /> },
+      { path: "/home/edit-profile",         element: <EditProfile /> },
     ],
   },
 ]);
 
-// ✅ Render App
+// -------------------------------------------------------------
+// Mount React app
+// -------------------------------------------------------------
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={appRouter} />);
