@@ -20,6 +20,6 @@ const ordersSlice = createSlice({
   },
 });
 
-// ✅ Make sure `cancelOrder` is exported
+//  Make sure `cancelOrder` is exported
 export const { addOrder, clearOrders, cancelOrder } = ordersSlice.actions;
 export default ordersSlice.reducer;
