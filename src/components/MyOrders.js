@@ -23,6 +23,10 @@ const MyOrders = () => {
     }
   };
 
+  const handleTrackOrder = (orderId) => {
+    navigate(`/home/track/${orderId}`);
+  };
+
   // ✅ Show logout message + login button if not logged in
   if (!isLoggedIn) {
     return (
@@ -80,12 +84,22 @@ const MyOrders = () => {
                   Total: ₹{order.total}
                 </p>
 
-                <button
-                  className="mt-2 px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  onClick={() => handleCancel(order.id)}
-                >
-                  Cancel Order
-                </button>
+                {/* ✅ Buttons in flex row */}
+                <div className="flex justify-between mt-3">
+                  <button
+                    className="px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={() => handleCancel(order.id)}
+                  >
+                    Cancel Order
+                  </button>
+
+                  <button
+                    className="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    onClick={() => handleTrackOrder(order.id)}
+                  >
+                    Track Order
+                  </button>
+                </div>
               </div>
             ))}
           </div>
