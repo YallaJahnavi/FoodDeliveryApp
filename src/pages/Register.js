@@ -17,20 +17,20 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleRegister = () => {
-    // ✅ Check for empty fields
+    // Check for empty fields
     const isEmpty = Object.values(form).some((value) => value.trim() === "");
     if (isEmpty) {
       alert("Enter your details first");
       return;
     }
 
-    // ✅ Phone number must be exactly 10 digits
+    // Phone number must be exactly 10 digits
     if (!/^\d{10}$/.test(form.phone)) {
       alert("Please enter a valid 10-digit phone number.");
       return;
     }
 
-    // ✅ Email must be in correct @gmail.com format
+    // Email must be in correct @gmail.com format
     if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(form.email)) {
       alert("Please enter a valid Gmail address (example@gmail.com).");
       return;
