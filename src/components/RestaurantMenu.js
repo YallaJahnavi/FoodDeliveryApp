@@ -2,14 +2,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { addItemsToCart } from "../utils/cartSlice";
-import UserContext from "../utils/UserContext"; // ✅ imported
+import UserContext from "../utils/UserContext"; // imported
 import "./RestaurantMenu.css";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useContext(UserContext); // ✅ used to check login state
+  const { isLoggedIn } = useContext(UserContext); // used to check login state
 
   const [restaurantData, setRestaurantData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -91,7 +91,7 @@ const RestaurantMenu = () => {
   return (
     <div className="restaurant-menu-wrapper">
       <div className="restaurant-menu-content">
-        {/* ✅ Back Button Always Visible */}
+        {/* Back Button Always Visible */}
         <button
           className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           onClick={() => navigate("/home")}
@@ -99,7 +99,7 @@ const RestaurantMenu = () => {
           ← Back to Restaurants
         </button>
 
-        {/* ✅ Logged Out View */}
+        {/* Logged Out View */}
         {!isLoggedIn ? (
           <p className="text-center text-red-600 font-semibold text-xl mt-20">
             User Logged Out Successfully
