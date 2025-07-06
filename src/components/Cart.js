@@ -3,7 +3,7 @@ import { removeItem, clearCart } from "../utils/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../utils/UserContext";
-import "./Cart.css"; // ✅ Import the CSS for background
+import "./Cart.css"; // Import the CSS for background
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
@@ -12,7 +12,7 @@ const Cart = () => {
 
   const { isLoggedIn } = useContext(UserContext);
 
-  // ✅ Handle "Buy Now" redirect with cart data
+  // Handle "Buy Now" redirect with cart data
   const handleBuyNow = () => {
     if (cartItems.length === 0) {
       alert("Your cart is empty.");
