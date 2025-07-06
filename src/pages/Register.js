@@ -17,6 +17,18 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleRegister = () => {
+    // ✅ Phone number must be exactly 10 digits
+    if (!/^\d{10}$/.test(form.phone)) {
+      alert("Please enter a valid 10-digit phone number.");
+      return;
+    }
+
+    // ✅ Email must be in correct @gmail.com format
+    if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(form.email)) {
+      alert("Please enter a valid Gmail address (example@gmail.com).");
+      return;
+    }
+
     const success = saveUser(form);
     if (success) {
       alert("Registered successfully!");
