@@ -125,13 +125,7 @@ const Header = () => {
               >
                 Profile
               </NavLink>
-              <NavLink
-                to="/home/settings"
-                className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
-                onClick={() => setShowDropdown(false)}
-              >
-                Settings
-              </NavLink>
+            
               <hr className="my-1 border-gray-200" />
               {isLoggedIn ? (
                 <button
