@@ -16,7 +16,7 @@ const RestaurantCard = (props) => {
     locality = "",
   } = resData || {};
 
-  // ✅ Dynamically build image URL from cloudinaryImageId or fallback
+  // Dynamically build image URL from cloudinaryImageId or fallback
   const imageUrl = cloudinaryImageId
     ? `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${cloudinaryImageId}`
     : "https://via.placeholder.com/300x200?text=No+Image";
@@ -61,7 +61,7 @@ const RestaurantCard = (props) => {
   );
 };
 
-// ✅ Higher Order Component to add 'Promoted' label
+// Higher Order Component to add 'Promoted' label
 export const withPromtedLabel = (RestaurantCard) => {
   return (props) => (
     <div className="relative">
