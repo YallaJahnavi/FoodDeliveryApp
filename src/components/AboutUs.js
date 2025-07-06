@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AboutUs.css";
-import UserContext from "../utils/UserContext"; // ✅ Import context
+import UserContext from "../utils/UserContext"; // Import context
 
 const AboutUs = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(UserContext); // ✅ Access login state
+  const { isLoggedIn } = useContext(UserContext); // Access login state
 
   const handleBack = () => {
     navigate("/home");
@@ -15,7 +15,7 @@ const AboutUs = () => {
     navigate("/home/contact");
   };
 
-  // ✅ If not logged in, show logout message + Login Again button
+  // If not logged in, show logout message + Login Again button
   if (!isLoggedIn) {
     return (
       <div className="about-container text-center">
@@ -32,7 +32,7 @@ const AboutUs = () => {
     );
   }
 
-  // ✅ Show About content only if logged in
+  // Show About content only if logged in
   return (
     <div className="aboutus-wrapper">
       <div className="aboutus-content">
