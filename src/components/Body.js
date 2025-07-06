@@ -1,7 +1,7 @@
 import RestaurantCard, { withPromtedLabel } from "./RestaurantCard";
 import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
-import { Link, useNavigate } from "react-router-dom"; // ✅ Added useNavigate
+import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
 
@@ -13,7 +13,7 @@ const Body = () => {
   const RestaurantCardPromoted = withPromtedLabel(RestaurantCard);
   const { loggedInUser, setUserName, isLoggedIn } = useContext(UserContext);
   const onlineStatus = useOnlineStatus();
-  const navigate = useNavigate(); // ✅ Required for button navigation
+  const navigate = useNavigate(); // Required for button navigation
 
   useEffect(() => {
     fetchData();
@@ -110,7 +110,7 @@ const Body = () => {
           filteredRestaurant.map((restaurant) => (
             <Link
               key={restaurant?.info.id}
-              to={`/home/restaurants/${restaurant?.info.id}`} // ✅ Corrected route
+              to={`/home/restaurants/${restaurant?.info.id}`} // route
             >
               {restaurant?.info.promoted ? (
                 <RestaurantCardPromoted resData={restaurant?.info} />
